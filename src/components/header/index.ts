@@ -13,6 +13,6 @@ export const StyledHeader = styled.div`
     div {
         margin: 0 10px;
     }
-    margin: 0 10px; 
+    margin: 10px 30px; 
     width: 97%;
 `;

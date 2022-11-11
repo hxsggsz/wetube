@@ -1,6 +1,8 @@
 import { StyledTimeline } from ".";
 import { useContext } from "react";
 import { SearchContext } from '../../pages';
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface TimelineProps {
 
@@ -8,6 +10,7 @@ interface TimelineProps {
 }
 
 function Timeline({ ...props }: TimelineProps) {
+  const router = useRouter()
   const { valorDoFiltro }: any = useContext(SearchContext)
   const playlistNames = Object.keys(props.playlists);
   return (
@@ -27,13 +30,21 @@ function Timeline({ ...props }: TimelineProps) {
                   return titleNormalized.includes(searchValueNormalized)
                 })
                 .map((video) => {
+                  const regex = new RegExp("(?<=v=).+");
+                  const videoId = video.url.match(regex);
                   return (
-                    <a key={video.url} href={video.url}>
+                    <Link key={video.url} href={{
+                      pathname: `/video`,
+                      query: {
+                        id: videoId,
+                        title: video.title
+                      }
+                    }}>
                       <img src={video.thumb} />
                       <span>
                         {video.title}
                       </span>
-                    </a>
+                    </Link>
                   )
                 })}
             </div>

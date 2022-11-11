@@ -1,13 +1,14 @@
-import type { AppProps } from 'next/app'
 import { useState } from 'react'
-import { ThemeProvider } from 'styled-components'
+import type { AppProps } from 'next/app'
 import { GlobalStyle } from '../../styles/global'
+import { ThemeProvider } from 'styled-components'
+import ColorModeContext from '../context/ColorModeContext'
 import { ThemeType } from '../../styles/themes/interfaces'
 import { lightTheme, darkTheme } from '../../styles/themes/themes'
-import ColorModeContext from '../context/ColorModeContext'
+import { RegisterVideo } from '../components/modalRegisterVideo/registerVideo'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState<ThemeType>("light");
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   return (
     <ColorModeContext.Provider
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
         <GlobalStyle />
+        <RegisterVideo />
         <Component {...pageProps} />
       </ThemeProvider>
     </ColorModeContext.Provider>

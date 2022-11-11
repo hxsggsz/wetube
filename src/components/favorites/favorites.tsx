@@ -12,7 +12,7 @@ const Favorite: React.FC<FavoriteProps> = ({ ...props }: FavoriteProps) => {
     <StyledFavorites>
       <h1>{title}</h1>
 
-      <div>
+      <div> 
         {title.map((item, index) => {
           const image = props.favorites[item]
           return (
