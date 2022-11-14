@@ -2,8 +2,8 @@ import React, { createContext, SetStateAction } from "react";
 import { ThemeType } from "../../styles/themes/interfaces";
 
 const ColorModeContext = createContext([
-  "light",
-  (() => {}) as React.Dispatch<SetStateAction<ThemeType>> ,
+  "dark",
+  (() => {}) as React.Dispatch<SetStateAction<string>>,
 ]);
 
 export default ColorModeContext;

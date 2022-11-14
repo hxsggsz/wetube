@@ -54,13 +54,21 @@ function ThemeSwitch() {
   const [checked, setChecked] = useState(false);
   const [theme, setTheme] = useContext(ColorModeContext);
 
+  const armazenar = (chave: string, valor: string) => {
+    localStorage.setItem(chave, valor)
+  }
+  function toggleTheme() {
+    /*  @ts-ignore */
+    if (theme === "light") { setTheme("dark"); armazenar('ls_theme', "dark") }
+    /*  @ts-ignore */
+    if (theme === 'dark') { setTheme("light"); armazenar('ls_theme', "light") }
+  }
   return (
     <MaterialUISwitch
       checked={checked}
       onClick={() => {
         setChecked(!checked);
-        /*  @ts-ignore */
-        theme === "light" ? setTheme("dark") : setTheme("light");
+        toggleTheme()
       }}
       inputProps={{ "aria-label": "controlled" }}
     />
