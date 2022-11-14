@@ -5,7 +5,6 @@ export const StyledIframe = styled.iframe`
   height: 80vh;
   border-radius: 10px;
   margin-top: 40px;
-  border: 1px solid blue;
   @media (max-width: 768px) {
     width: 100vw;
     height: 60vh;
@@ -15,7 +14,6 @@ export const StyledIframe = styled.iframe`
 
 export const StyledVideo = styled.div`
   width: 100%;
-  border: 1px solid red;
   display: flex;
   align-items: center;
   flex-direction: column;
