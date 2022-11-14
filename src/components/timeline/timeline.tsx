@@ -15,7 +15,7 @@ function Timeline({ ...props }: TimelineProps) {
 
 
   return (
-
+ 
     <StyledTimeline>
       {playlistNames.map((playlistName, index) => {
         const videos = props.playlists[playlistName];

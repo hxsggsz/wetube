@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ColorModeContext.Provider
       value={[theme, setTheme]}
     >
+      <title>AluraTube</title>
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
         <GlobalStyle />
         <RegisterVideo />

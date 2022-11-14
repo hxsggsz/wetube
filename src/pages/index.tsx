@@ -23,7 +23,6 @@ const Home: NextPage<Props> = () => {
   const [playlists, setPlaylists] = useState({});
 
 
-
   useEffect(() => {
     service
       .getAllVideos()
@@ -36,7 +35,6 @@ const Home: NextPage<Props> = () => {
             ...novasPlaylists[video.playlist],
           ];
         });
-
         setPlaylists(novasPlaylists);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps

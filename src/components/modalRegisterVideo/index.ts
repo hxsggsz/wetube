@@ -37,13 +37,18 @@ export const StyledRegisterVideo = styled.div`
   form {
     width: 100%;
     padding: 5%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     display: flex;
     justify-content: center;
+    @media (max-width: 425px) {
+      padding: 7%;
+    }
     & > div {
       flex: 1;
       border-radius: 8px;
@@ -54,6 +59,11 @@ export const StyledRegisterVideo = styled.div`
       position: relative;
       padding: 16px;
       padding-top: 40px;
+      @media (max-width: 425px) {
+        max-width: 100%;
+        height: 100%;
+        margin: 0 auto;
+      }
     }
   }
   input {
