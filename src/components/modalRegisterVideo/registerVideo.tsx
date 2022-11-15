@@ -1,5 +1,5 @@
 import { X, YoutubeLogo } from "phosphor-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { StyledRegisterVideo } from ".";
 import videoService from "../../services/videoService";
 import { CloseIcon } from "../notification";
@@ -36,8 +36,14 @@ export const RegisterVideo: React.FC = () => {
   const [notify, setNotify] = useState(false)
   const [visible, setVisible] = useState(false)
 
-  const formMethod = useForm<ValidationsInterface>({ resolver: ValidationsResolvers })
-  const { formState: { errors }, register, handleSubmit } = formMethod
+  const formMethod = useForm<ValidationsInterface>({
+    resolver: ValidationsResolvers,
+    defaultValues: {
+      titulo: '',
+      url: '',
+    },
+  })
+  const { formState: { errors, isSubmitSuccessful }, register, handleSubmit, reset, resetField } = formMethod
 
   function onSubmit(values) {
     service.setNewVIdeo()
@@ -52,10 +58,19 @@ export const RegisterVideo: React.FC = () => {
     setTimeout(() => {
       setNotify(false)
     }, 5000);
-
-    values = ''
-    form.clearForm()
+    reset: (
+      {
+        titulo: '',
+        url: '',
+      }
+    )
   }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ titulo: '', url: '' });
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <StyledRegisterVideo>
