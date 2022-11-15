@@ -5,6 +5,7 @@ export const StyledFavorites = styled.div`
   text-align: center;
   div {
     display: flex;
+    margin: 10px;
   }
   section {
     width: 200px;
@@ -12,7 +13,7 @@ export const StyledFavorites = styled.div`
   img {
     width: 150px;
     height: 150px;
-    margin: 5px;
+    margin: 25px;
     border-radius: 50%;
   }
 `;

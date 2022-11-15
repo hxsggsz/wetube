@@ -65,6 +65,10 @@ export const StyledRegisterVideo = styled.div`
         margin: 0 auto;
       }
     }
+    & span {
+      color: #ad0f1e;
+      font-weight: 700;
+    }
   }
   input {
     border-radius: 2px;

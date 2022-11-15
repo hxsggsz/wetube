@@ -1,18 +1,25 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledHeader = styled.div`
-    img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-    }
-    section {
-        display: flex;
-        align-items: center;
-    }
-    div {
-        margin: 0 10px;
-    }
-    margin: 10px 30px; 
-    width: 97%;
+  img {
+    width: 10vw;
+    height: 20vh;
+    border-radius: 50%;
+  }
+  section {
+    display: flex;
+    align-items: center;
+  }
+  div {
+    margin: 0 10px;
+  }
+  h1 {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  span {
+    font-size: 1rem;
+  }
+  margin: 10px 30px;
+  width: 97%;
 `;

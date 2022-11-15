@@ -15,11 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
     let local: any = localStorage.getItem('ls_theme')
 
     setTheme(local)
-    if (local === null) {
+    if (local === 'light') {
       setTheme("light")
     }
-    if (local !== "light" && local !== "dark") {
-      setTheme("light")
+    if (local !== "light") {
+      setTheme("dark")
     }
   }, [theme])
 

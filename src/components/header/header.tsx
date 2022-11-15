@@ -1,22 +1,24 @@
+import axios from 'axios'
+import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import { StyledHeader } from '.'
 
 interface HeaderProps {
-  name: string
-  job: string
-  github: string
+  login: string,
+  bio: string,
+  avatar_url: string
 }
 
-export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = ({ login, bio, avatar_url }: HeaderProps) => {
   return (
     <StyledHeader>
       <section>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`https://github.com/${props.github}.png`} alt='avatar padrão' />
+        <img src={avatar_url} alt='avatar padrão' />
 
         <div>
-          <h1>{props.name}</h1>
-          <span>{props.job}</span>
+          <h1>{login}</h1>
+          <span>{bio}</span>
         </div>
       </section>
 

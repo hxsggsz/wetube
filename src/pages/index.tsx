@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import config from '../../config.json'
 import { Menu } from "../components/menu/menu"
 import { Header } from "../components/header/header";
@@ -8,22 +8,24 @@ import Timeline from "../components/timeline/timeline";
 import Favorite from "../components/favorites/favorites";
 import { createContext, useEffect, useState } from "react";
 import videoService, { supabase } from "../services/videoService";
+import axios from "axios";
 
 interface Props {
-  url: string | undefined;
-  thumb: string | undefined;
-  title: string
+  res: {
+    login: string,
+    bio: string,
+    avatar_url: string
+  }
 }
 
 export const SearchContext = createContext({})
 
-const Home: NextPage<Props> = () => {
+const Home: NextPage<Props> = ({ res }: Props) => {
   const service = videoService()
   const [valorDoFiltro, setValorDoFiltro] = useState('')
   const [playlists, setPlaylists] = useState({});
 
-
-  useEffect(() => {
+  function handleVideos() {
     service
       .getAllVideos()
       .then((dados) => {
@@ -37,20 +39,43 @@ const Home: NextPage<Props> = () => {
         });
         setPlaylists(novasPlaylists);
       });
+  }
+
+  useEffect(() => {
+    supabase
+      .from('video')
+      .on('INSERT', (payload) => handleVideos()) //atualiza os videos na timeline
+      .subscribe()
+
+    handleVideos()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // useEffect(() => {
+  //   handleVideos() //mostra os videos na timeline
+  // }, [])
 
   return (
     <SearchContext.Provider value={{ valorDoFiltro, setValorDoFiltro }}>
       <div >
         <Menu />
         <Banner image={config.banner} />
-        <Header name={config.name} job={config.job} github={config.github} />
+        <Header login={res.login} bio={res.bio} avatar_url={res.avatar_url} />
         <Timeline playlists={playlists} />
         <Favorite thumb={""} name={""} favorites={config.favorites} />
       </div>
     </SearchContext.Provider>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await axios.get('https://api.github.com/users/hxsggsz')
+
+  return {
+    props: {
+      res: res.data
+    },
+  }
 }
 
 export default Home;

@@ -5,15 +5,17 @@ import videoService from "../../services/videoService";
 import { CloseIcon } from "../notification";
 import { Notify } from "../notification/notification";
 import { AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { ValidationsResolvers } from "../../validations/validations";
+import { ValidationsInterface } from "../../validations/interfaceValidations";
 
-function useForm() {
+function useFormulario() {
   const [values, setValues] = useState({ titulo: '', url: '' })
   return {
     values,
     handleChange: (e: FormEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
       const name = e.currentTarget.name
-      console.log(value)
       setValues({
         ...values,
         [name]: value
@@ -29,43 +31,56 @@ function useForm() {
 }
 
 export const RegisterVideo: React.FC = () => {
-  const form = useForm()
+  const form = useFormulario()
   const service = videoService()
   const [notify, setNotify] = useState(false)
   const [visible, setVisible] = useState(false)
+
+  const formMethod = useForm<ValidationsInterface>({ resolver: ValidationsResolvers })
+  const { formState: { errors }, register, handleSubmit } = formMethod
+
+  function onSubmit(values) {
+    service.setNewVIdeo()
+      .insert({
+        title: form.values.titulo,
+        url: form.values.url,
+        thumb: form.getThumb(form.values.url)
+      }).then(res => console.log(res))
+    setVisible(!visible)
+
+    setNotify(true)
+    setTimeout(() => {
+      setNotify(false)
+    }, 5000);
+
+    values = ''
+    form.clearForm()
+  }
+
   return (
     <StyledRegisterVideo>
       <button onClick={() => setVisible(!visible)} className='add-video'>+</button>
-      {visible && <form onSubmit={(e) => {
-        service.setNewVIdeo()
-          .insert({
-            title: form.values.titulo,
-            url: form.values.url,
-            thumb: form.getThumb(form.values.url)
-          }).then(res => console.log(res))
-        setVisible(!visible)
-
-        setNotify(true)
-        setTimeout(() => {
-          setNotify(false)
-        }, 5000);
-
-        form.clearForm()
-      }}>
+      {visible && <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <button onClick={() => setVisible(!visible)} className='close-modal'>x</button>
           <input
-            required
+            {...register('titulo')}
             name='titulo'
             value={form.values.titulo}
             onChange={form.handleChange}
             placeholder="Titulo do video" />
+          {errors?.titulo?.message && (
+            <span>{errors?.titulo?.message}</span>
+          )}
           <input
-            required
+            {...register('url')}
             name='url'
             value={form.values.url}
             onChange={form.handleChange}
             placeholder="Ensira a URL aqui" />
+          {errors?.url?.message && (
+            <span>{errors?.url?.message}</span>
+          )}
           <button type='submit' >Cadastrar</button>
         </div>
       </form>}
@@ -76,9 +91,7 @@ export const RegisterVideo: React.FC = () => {
               <Notify.Icon>
                 <YoutubeLogo size={32} />
               </Notify.Icon>
-              <h1>
-                ALURATUBE
-              </h1>
+              <h1>ALURATUBE</h1>
             </Notify.Title>
 
             <Notify.Icon>
@@ -88,7 +101,7 @@ export const RegisterVideo: React.FC = () => {
             </Notify.Icon>
 
             <Notify.Body>
-              <p>Video cadastrado, para ver o video atualize a página</p>
+              <p>Video cadastrado com sucesso!</p>
             </Notify.Body>
           </Notify.Root>
         )}
