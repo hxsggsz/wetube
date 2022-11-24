@@ -3,7 +3,6 @@ import config from '../../config.json'
 import { Menu } from "../components/menu/menu"
 import { Header } from "../components/header/header";
 import { Banner } from "../components/banner/banner";
-
 import Timeline from "../components/timeline/timeline";
 import Favorite from "../components/favorites/favorites";
 import { createContext, useEffect, useState } from "react";
@@ -48,11 +47,13 @@ const Home: NextPage<Props> = ({ res }: Props) => {
       .subscribe()
 
     handleVideos()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // useEffect(() => {
   //   handleVideos() //mostra os videos na timeline
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [])
 
   return (

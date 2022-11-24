@@ -16,7 +16,7 @@ export const StyledMenu = styled.header`
   z-index: 3;
   .logo {
     width: 100%;
-    max-width: 80px;
+    max-width: 200px;
     @media (min-width: 600px) {
       max-width: 127px;
     }

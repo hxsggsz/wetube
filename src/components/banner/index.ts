@@ -8,4 +8,4 @@ export const StyledBanner = styled.div`
     height: 40vh;
     z-index: 1;
   }
-`
+`;

@@ -5,6 +5,9 @@ export const StyledHeader = styled.div`
     width: 10vw;
     height: 20vh;
     border-radius: 50%;
+    @media (max-width: 425px) {
+      width: 25vw;
+    }
   }
   section {
     display: flex;

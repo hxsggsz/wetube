@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { ValidationsResolvers } from "../../validations/validations";
 import { ValidationsInterface } from "../../validations/interfaceValidations";
+import { SubmitHandler } from "react-hook-form/dist/types";
 
 function useFormulario() {
   const [values, setValues] = useState({ titulo: '', url: '' })
@@ -43,21 +44,21 @@ export const RegisterVideo: React.FC = () => {
       url: '',
     },
   })
-  const { formState: { errors, isSubmitSuccessful }, register, handleSubmit, reset, resetField } = formMethod
+  const { formState: { errors, isSubmitSuccessful }, register, handleSubmit, reset } = formMethod
 
-  function onSubmit(values) {
+  const onSubmit: SubmitHandler<ValidationsInterface> = (data) => {
     service.setNewVIdeo()
       .insert({
-        title: form.values.titulo,
-        url: form.values.url,
-        thumb: form.getThumb(form.values.url)
+        title: data.titulo,
+        url: data.url,
+        thumb: form.getThumb(data.url)
       }).then(res => console.log(res))
     setVisible(!visible)
 
     setNotify(true)
     setTimeout(() => {
       setNotify(false)
-    }, 5000);
+    }, 4300);
     reset: (
       {
         titulo: '',
@@ -114,9 +115,12 @@ export const RegisterVideo: React.FC = () => {
                 <X size={20} />
               </CloseIcon>
             </Notify.Icon>
-
             <Notify.Body>
-              <p>Video cadastrado com sucesso!</p>
+
+              <Notify.Timer />
+              <div>
+                <p>Video cadastrado com sucesso!</p>
+              </div>
             </Notify.Body>
           </Notify.Root>
         )}

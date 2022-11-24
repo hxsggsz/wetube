@@ -1,4 +1,4 @@
-import { BodyStyled, RootStyle, TitleStyle } from "."
+import { BodyStyled, RootStyle, TimerStyled, TitleStyle } from "."
 import { ReactNode } from "react"
 import { Slot } from "@radix-ui/react-slot"
 
@@ -32,6 +32,13 @@ const NotifyTitle: React.FC<NotiProps> = ({ children }: NotiProps) => {
   )
 }
 
+const NotifyTimer: React.FC = () => (
+  <TimerStyled
+    animate={{ scaleX: 100 }}
+    transition={{ duration: 10 }}
+  />
+)
+
 const NotifyBody: React.FC<NotiProps> = ({ children }: NotiProps) => {
   return (
     <BodyStyled>{children}</BodyStyled>
@@ -42,5 +49,6 @@ export const Notify = {
   Root: NotifyRoot,
   Icon: NotifyIcon,
   Title: NotifyTitle,
+  Timer: NotifyTimer,
   Body: NotifyBody,
 }

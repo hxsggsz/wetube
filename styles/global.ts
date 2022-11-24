@@ -12,9 +12,10 @@ export const GlobalStyle = createGlobalStyle`
   }
   /* NextJS */
   html {
-    display: flex;
+    display: flex; */
     flex-direction: column;
     min-height: 100%;
+    overflow-x: hidden;
   }
   body {
     display: flex;

@@ -10,7 +10,7 @@ export const StyledIframe = styled.iframe`
     height: 60vh;
     margin-top: 0;
   }
-  `;
+`;
 
 export const StyledVideo = styled.div`
   width: 100%;
@@ -20,5 +20,6 @@ export const StyledVideo = styled.div`
   justify-content: center;
   & h1 {
     max-width: 100%;
+    font-size: 1.5rem;
   }
 `;
