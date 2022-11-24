@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledIframe = styled.iframe`
   width: 70vw;
   height: 80vh;
+  display: flex;
   border-radius: 10px;
   margin-top: 40px;
   @media (max-width: 768px) {

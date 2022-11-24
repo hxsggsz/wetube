@@ -9,11 +9,14 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: sans-serif;
+      width: 100vw;
   }
   /* NextJS */
   html {
     display: flex; */
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     min-height: 100%;
     overflow-x: hidden;
   }
@@ -24,7 +27,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.textColorBase};
   }
   #__next {
-    display: flex;
     flex: 1;
   }
   /* Globals */

@@ -5,6 +5,15 @@ export const StyledTimeline = styled.div`
   width: 100%;
   padding: 16px;
   overflow: hidden;
+  width: calc(100vw - 16px * 4);
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 4fr));
+  grid-auto-flow: row;
+  grid-auto-columns: minmax(170px, 4fr);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
   h2 {
     font-size: 16px;
     font-weight: bold;
@@ -16,7 +25,7 @@ export const StyledTimeline = styled.div`
     font-weight: 500;
     object-fit: cover;
     width: 100%;
-    max-width: 220px;
+    max-width: 250px;
     height: auto;
     border-radius: 12px;
     @media (max-width: 425px) {

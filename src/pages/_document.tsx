@@ -40,7 +40,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt-br">
         <Head>
-          <meta charSet="utf-8" />
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
         </Head>
         <body>

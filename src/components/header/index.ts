@@ -5,8 +5,9 @@ export const StyledHeader = styled.div`
     width: 10vw;
     height: 20vh;
     border-radius: 50%;
-    @media (max-width: 425px) {
-      width: 25vw;
+    @media (max-width: 768px) {
+      width: 20vw;
+      height: 18vh;
     }
   }
   section {
@@ -24,5 +25,5 @@ export const StyledHeader = styled.div`
     font-size: 1rem;
   }
   margin: 10px 30px;
-  width: 97%;
+  width: 100%;
 `;

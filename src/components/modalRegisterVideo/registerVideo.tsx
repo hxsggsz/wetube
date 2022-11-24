@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { ValidationsResolvers } from "../../validations/validations";
 import { ValidationsInterface } from "../../validations/interfaceValidations";
 import { SubmitHandler } from "react-hook-form/dist/types";
+import { Loading } from "../loading/loading";
 
 function useFormulario() {
   const [values, setValues] = useState({ titulo: '', url: '' })
@@ -36,6 +37,7 @@ export const RegisterVideo: React.FC = () => {
   const service = videoService()
   const [notify, setNotify] = useState(false)
   const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const formMethod = useForm<ValidationsInterface>({
     resolver: ValidationsResolvers,
@@ -46,13 +48,18 @@ export const RegisterVideo: React.FC = () => {
   })
   const { formState: { errors, isSubmitSuccessful }, register, handleSubmit, reset } = formMethod
 
-  const onSubmit: SubmitHandler<ValidationsInterface> = (data) => {
+  const onSubmit: SubmitHandler<ValidationsInterface> = async (data) => {
+    setLoading(true)
+    await new Promise(r => setTimeout(r, 2000))
+    setLoading(false)
+
     service.setNewVIdeo()
       .insert({
         title: data.titulo,
         url: data.url,
         thumb: form.getThumb(data.url)
       }).then(res => console.log(res))
+
     setVisible(!visible)
 
     setNotify(true)
@@ -97,7 +104,7 @@ export const RegisterVideo: React.FC = () => {
           {errors?.url?.message && (
             <span>{errors?.url?.message}</span>
           )}
-          <button type='submit' >Cadastrar</button>
+          <button type='submit' >{loading ? <Loading /> : 'Cadastrar'}</button>
         </div>
       </form>}
       <AnimatePresence>

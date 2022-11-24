@@ -28,7 +28,11 @@ export const StyledRegisterVideo = styled.div`
   }
   button[type="submit"] {
     background-color: red;
-    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    height: 40px;
     border: none;
     border-radius: 2px;
     cursor: pointer;
