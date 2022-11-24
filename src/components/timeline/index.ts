@@ -4,8 +4,8 @@ export const StyledTimeline = styled.div`
   flex: 1;
   width: 100%;
   padding: 16px;
+  margin: 0 auto;
   overflow: hidden;
-  width: calc(100vw - 16px * 4);
   display: grid;
   grid-gap: 16px;
   grid-template-columns: repeat(auto-fill, minmax(220px, 4fr));
@@ -15,7 +15,7 @@ export const StyledTimeline = styled.div`
   scroll-snap-type: x mandatory;
 
   h2 {
-    font-size: 16px;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 16px;
     text-transform: capitalize;
@@ -29,17 +29,18 @@ export const StyledTimeline = styled.div`
     height: auto;
     border-radius: 12px;
     @media (max-width: 425px) {
-      max-width: 100%;
-      margin: 10px;
+      max-width: 100vw;
     }
   }
   section {
     width: 100%;
     padding: 0;
     overflow: hidden;
-    padding: 16px;
+    @media (max-width: 425px) {
+      margin: 0 20px;
+      font-size: 1.2rem;
+    }
     div {
-      width: calc(100vw - 16px * 4);
       display: grid;
       grid-gap: 16px;
       grid-template-columns: repeat(auto-fill, minmax(220px, 4fr));
@@ -58,11 +59,8 @@ export const StyledTimeline = styled.div`
           padding-top: 8px;
           display: block;
           padding-right: 24px;
-          color: ${({ theme }) => theme.textColorBase || "#222222"};
 
-          @media (max-width: 425px) {
-            margin: 0 20px;
-          }
+          color: ${({ theme }) => theme.textColorBase || "#222222"};
         }
       }
     }
