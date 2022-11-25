@@ -9,7 +9,7 @@ import ThemeSwitch from '../themeSwitch/themeSwitch';
 export const Menu: React.FC = () => {
   const { valorDoFiltro, setValorDoFiltro }: any = useContext(SearchContext)
   return (
-    <StyledMenu>
+    <StyledMenu> 
       <div>
         <Link href='/'>
           <Logo />

@@ -16,7 +16,6 @@ function Timeline() {
   const { valorDoFiltro }: any = useContext(SearchContext)
   const [playlists, setPlaylists] = useState<Video[]>([]);
 
-
   useEffect(() => {
     async function newTimeline() {
       const { data: video } = await supabase.from('video').select('*')
@@ -40,7 +39,7 @@ function Timeline() {
           return titleNormalized.includes(searchValueNormalized)
         })
         .reverse()
-        //como os videos são inseridos em um array, o video adicionado sempre fica por ultimo, assim ele primeiro a aparecer em tela
+        //como os videos são inseridos em um array, o video adicionado sempre fica por ultimo, revertendo o array, ele primeiro a aparecer em tela.
         .map((playlist) => {
           const regex = new RegExp("(?<=v=).+");
           const playlistId = playlist.url.match(regex);
@@ -51,6 +50,7 @@ function Timeline() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
               >
+
                 <Link href={{
                   pathname: `/video`,
                   query: {
@@ -69,47 +69,6 @@ function Timeline() {
           )
         })}
     </StyledTimeline>
-
-    // {playlistNames.map((playlistName, index) => {
-    //   const videos = props.playlists[playlistName];
-    //   return (
-    //     <AnimatePresence key={index}>
-    //       <motion.section
-    //         initial={{ opacity: 0, x: -100 }}
-    //         animate={{ opacity: 1, x: 0 }}
-    //         exit={{ opacity: 0, x: -100 }}
-    //       >
-    //         <h2>videos</h2>
-    //         <div>
-    //           {videos
-    //             .filter((video) => {
-    //               const titleNormalized = video.title.toLowerCase()
-    //               const searchValueNormalized = valorDoFiltro.toLowerCase()
-    //               return titleNormalized.includes(searchValueNormalized)
-    //             })
-    //             .map((video) => {
-    //               const regex = new RegExp("(?<=v=).+");
-    //               const videoId = video.url.match(regex);
-    //               return (
-    //                 <Link key={video.url} href={{
-    //                   pathname: `/video`,
-    //                   query: {
-    //                     id: videoId,
-    //                     title: video.title
-    //                   }
-    //                 }}>
-    //                   <img src={video.thumb} />
-    //                   <span>
-    //                     {video.title}
-    //                   </span>
-    //                 </Link>
-    //               )
-    //             })}
-    //         </div>
-    //       </motion.section>
-    //     </AnimatePresence>
-    //   )
-    // })}
   )
 }
 

@@ -6,8 +6,7 @@ interface NotiProps {
   children: ReactNode
 }
 
-const NotifyRoot: React.FC<NotiProps> = ({ children }: NotiProps) => {
-  return (
+const NotifyRoot: React.FC<NotiProps> = ({ children }: NotiProps) => (
     <RootStyle
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
@@ -16,21 +15,16 @@ const NotifyRoot: React.FC<NotiProps> = ({ children }: NotiProps) => {
       {children}
     </RootStyle>
   )
-}
 
-const NotifyIcon: React.FC<NotiProps> = ({ children }: NotiProps) => {
-  return (
+const NotifyIcon: React.FC<NotiProps> = ({ children }: NotiProps) => (
     <Slot>
       {children}
     </Slot>
   )
-}
 
-const NotifyTitle: React.FC<NotiProps> = ({ children }: NotiProps) => {
-  return (
+const NotifyTitle: React.FC<NotiProps> = ({ children }: NotiProps) => (
     <TitleStyle>{children}</TitleStyle>
   )
-}
 
 const NotifyTimer: React.FC = () => (
   <TimerStyled
@@ -39,11 +33,9 @@ const NotifyTimer: React.FC = () => (
   />
 )
 
-const NotifyBody: React.FC<NotiProps> = ({ children }: NotiProps) => {
-  return (
+const NotifyBody: React.FC<NotiProps> = ({ children }: NotiProps) => (
     <BodyStyled>{children}</BodyStyled>
   )
-}
 
 export const Notify = {
   Root: NotifyRoot,

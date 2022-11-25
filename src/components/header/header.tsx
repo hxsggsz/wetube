@@ -9,19 +9,17 @@ interface HeaderProps {
   avatar_url: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ login, bio, avatar_url }: HeaderProps) => {
-  return (
-    <StyledHeader>
-      <section>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={avatar_url} alt='avatar padrão' />
+export const Header: React.FC<HeaderProps> = ({ login, bio, avatar_url }: HeaderProps) => (
+  <StyledHeader>
+    <section>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={avatar_url} alt='avatar padrão' />
 
-        <div>
-          <h1>{login}</h1>
-          <span>{bio}</span>
-        </div>
-      </section>
+      <div>
+        <h1>{login}</h1>
+        <span>{bio}</span>
+      </div>
+    </section>
 
-    </StyledHeader>
-  );
-}
+  </StyledHeader>
+);
