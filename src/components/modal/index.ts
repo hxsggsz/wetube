@@ -10,7 +10,6 @@ export const root = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
 `;
 
 export const container = styled(motion.div)`
@@ -22,9 +21,8 @@ export const container = styled(motion.div)`
   padding: 16px;
   padding-top: 40px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 488px) {
     max-width: 95%;
-    margin: 0 auto;
   }
 `;
 

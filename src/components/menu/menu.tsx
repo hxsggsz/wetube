@@ -9,11 +9,14 @@ import { Button } from '../button/button';
 import { ModalLogin } from '../modalLogIn/login';
 import { AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
+import { ModalSignUp } from '../modalSignup/signup';
+import { AvatarMenu } from '../avatarMenu/AvatarMenu';
 
 export const Menu: React.FC = () => {
   const { user } = useAuth()
   const { valorDoFiltro, setValorDoFiltro }: any = useContext(SearchContext)
   const [login, setLogin] = useState(false)
+  const [signup, setSignUp] = useState(false)
 
   return (
     <>
@@ -21,21 +24,21 @@ export const Menu: React.FC = () => {
         <Link href='/'>
           <Logo />
         </Link>
-        <Search value={valorDoFiltro} onChange={(e) => setValorDoFiltro(e.target.value)} />
+        {/* <Search value={valorDoFiltro} onChange={(e) => setValorDoFiltro(e.target.value)} /> */}
         {/* <ThemeSwitch /> */}
         <style.buttons>
-          {/* {user ? <>
+          {!user ? <>
             <style.login onClick={() => setLogin(prev => !prev)}>Log In</style.login>
             <Button>Sign Up</Button>
           </>
-            : "log"} */}
-            <style.login onClick={() => setLogin(prev => !prev)}>Log In</style.login>
-            <Button>Sign Up</Button>
+            : <AvatarMenu />}
+          
         </style.buttons>
       </style.menu>
 
       <AnimatePresence>
         {login && <ModalLogin setLogin={setLogin} />}
+        {signup && <ModalSignUp setSignUp={setSignUp} />}
       </AnimatePresence>
     </>
   );

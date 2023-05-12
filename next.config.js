@@ -8,7 +8,7 @@ module.exports = {
     styledComponents: true
   },
   images: {
-    domains: ['https://github.com'],
+    domains: ['https://github.com', 'sdrsduyvpgydxlxzswzl.supabase.co', 'https://sdrsduyvpgydxlxzswzl.supabase.co'],
   },
 }
 

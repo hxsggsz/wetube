@@ -7,10 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-  body {
-    font-family: sans-serif;
-      width: 100vw;
-  }
+ 
   /* NextJS */
   html {
     display: flex;
@@ -20,11 +17,25 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     overflow-x: hidden;
   }
+
   body {
+    font-family: sans-serif;
+    width: 100vw;
     display: flex;
     flex: 1;
     background-color: ${({ theme }) => theme.backgroundBase};
     color: ${({ theme }) => theme.textColorBase};
+
+     /* scrollbar */
+  &::-webkit-scrollbar {
+    width: .4rem;
+    background: inherit;
+    border: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.textColorBase};
+    border-radius: 6px;
+  }
   }
   #__next {
     flex: 1;
