@@ -3,7 +3,7 @@ import { Button } from "../button/button";
 import { Input } from '../input/input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { supabase } from '../../services/videoService';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Error } from "../error/error";
 import { Menu } from "../menu/menu";
 
@@ -16,7 +16,7 @@ export const ResetPassword = () => {
   const [passError, setPassError] = useState("")
   const [loading, setLoading] = useState(false)
   const [handlePassword, setHandlePassword] = useState("password")
-  const { register, handleSubmit } = useForm<NewPasswordInputs>()
+  const { formState: { isSubmitSuccessful }, reset, register, handleSubmit } = useForm<NewPasswordInputs>()
 
   const onSubmit: SubmitHandler<NewPasswordInputs> = async (data) => {
     setLoading(true)
@@ -31,6 +31,10 @@ export const ResetPassword = () => {
 
     setLoading(false)
   }
+
+  useEffect(() => {
+    reset({ Password: '', SamePassword: '' });
+  }, [isSubmitSuccessful])
 
   return (
     <style.Wrapper>

@@ -55,7 +55,7 @@ export const RegisterVideo: React.FC = () => {
 
   useEffect(() => {
     reset({ titulo: '', url: '' });
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful])
 
   return (
     <StyledRegisterVideo>

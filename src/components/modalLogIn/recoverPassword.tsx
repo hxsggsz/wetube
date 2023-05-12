@@ -4,7 +4,7 @@ import { Button } from "../button/button";
 import { Input } from '../input/input';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { supabase } from '../../services/videoService';
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Error } from "../error/error";
 import { AnimatePresence } from "framer-motion";
 
@@ -16,7 +16,7 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
   const [recError, setRecError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSucess, setIsSucess] = useState(false)
-  const { register, handleSubmit } = useForm<RecoverPasswordInputs>()
+  const { formState: { isSubmitSuccessful }, reset, register, handleSubmit } = useForm<RecoverPasswordInputs>()
 
   const onSubmit: SubmitHandler<RecoverPasswordInputs> = async (data) => {
     setIsLoading(true)
@@ -33,6 +33,10 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
     setIsSucess(true)
   }
 
+  useEffect(() => {
+    reset({ RecoverPassword: '' });
+  }, [isSubmitSuccessful])
+
   return (
     <AnimatePresence>
       <style.form
@@ -43,7 +47,7 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
       >
         <Input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           {...register('RecoverPassword')}
         />
         <Error>{recError}</Error>
@@ -56,7 +60,7 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
         <Button type="submit" isLoading={isLoading}>Enviar Email</Button>
       </style.form>
 
-      {isSucess && <p style={{marginTop: "50px"}}>Verifique o seu E-mail para resetar sua senha!</p>}
+      {isSucess && <p style={{ marginTop: "50px" }}>Verifique o seu E-mail para resetar sua senha!</p>}
     </AnimatePresence>
   )
 }
