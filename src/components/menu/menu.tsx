@@ -1,22 +1,42 @@
 import Logo from './logo';
 import Link from "next/link";
-import { StyledMenu } from '.'
-import { useContext } from 'react';
+import * as style from '.'
+import { useContext, useState } from 'react';
 import { SearchContext } from '../../pages';
 import { Search } from '../search/search';
 import ThemeSwitch from '../themeSwitch/themeSwitch';
-   
+import { Button } from '../button/button';
+import { ModalLogin } from '../modalLogIn/login';
+import { AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
+
 export const Menu: React.FC = () => {
+  const { user } = useAuth()
   const { valorDoFiltro, setValorDoFiltro }: any = useContext(SearchContext)
+  const [login, setLogin] = useState(false)
+
   return (
-    <StyledMenu> 
-      <div>
+    <>
+      <style.menu>
         <Link href='/'>
           <Logo />
         </Link>
-      </div>
-      <Search value={valorDoFiltro} onChange={(e) => setValorDoFiltro(e.target.value)} />
-      <ThemeSwitch />
-    </StyledMenu>
+        <Search value={valorDoFiltro} onChange={(e) => setValorDoFiltro(e.target.value)} />
+        {/* <ThemeSwitch /> */}
+        <style.buttons>
+          {/* {user ? <>
+            <style.login onClick={() => setLogin(prev => !prev)}>Log In</style.login>
+            <Button>Sign Up</Button>
+          </>
+            : "log"} */}
+            <style.login onClick={() => setLogin(prev => !prev)}>Log In</style.login>
+            <Button>Sign Up</Button>
+        </style.buttons>
+      </style.menu>
+
+      <AnimatePresence>
+        {login && <ModalLogin setLogin={setLogin} />}
+      </AnimatePresence>
+    </>
   );
 }

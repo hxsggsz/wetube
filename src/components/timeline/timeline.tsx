@@ -1,5 +1,5 @@
 import { StyledTimeline } from ".";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from '../../pages';
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -52,7 +52,7 @@ function Timeline() {
               >
 
                 <Link href={{
-                  pathname: `/video`,
+                  pathname: `/v`,
                   query: {
                     id: playlistId,
                     title: playlist.title

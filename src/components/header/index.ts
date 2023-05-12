@@ -15,7 +15,7 @@ export const StyledHeader = styled.div`
     align-items: center;
   }
   div {
-    margin: 0 10px;
+    /* margin: 0 10px; */
   }
   h1 {
     font-weight: bold;

@@ -15,7 +15,7 @@ export const StyledRegisterVideo = styled.div`
     z-index: 99;
     cursor: pointer;
   }
-  .close-modal {
+  /* .close-modal {
     width: 25px;
     height: 25px;
     position: absolute;
@@ -25,8 +25,8 @@ export const StyledRegisterVideo = styled.div`
     background-color: transparent;
     border: none;
     cursor: pointer;
-  }
-  button[type="submit"] {
+  } */
+  /* button[type="submit"] {
     background-color: red;
     display: flex;
     justify-content: center;
@@ -37,26 +37,22 @@ export const StyledRegisterVideo = styled.div`
     border-radius: 2px;
     cursor: pointer;
     color: inherit;
-  }
-  form {
+  } */
+  /* form {
     width: 100%;
     padding: 5%;
     background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     z-index: 100;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     @media (max-width: 425px) {
       padding: 7%;
-    }
-    & > div {
+    } */
+    /* & > div {
       flex: 1;
       border-radius: 8px;
-      max-width: 320px;
+      max-width: 425px;
       background-color: ${({ theme }) => theme.backgroundLevel2};
       display: flex;
       flex-direction: column;
@@ -68,13 +64,13 @@ export const StyledRegisterVideo = styled.div`
         height: 100%;
         margin: 0 auto;
       }
-    }
+    } */
     & span {
       color: #ad0f1e;
       font-weight: 700;
     }
-  }
-  input {
+  
+  /* input {
     border-radius: 2px;
     border: 1px solid ${({ theme }) => theme.borderBase};
     padding: 8px 10px;
@@ -84,5 +80,5 @@ export const StyledRegisterVideo = styled.div`
     background-color: #f9f9f9;
     color: ${({ theme }) => theme.textColorBase};
     background-color: ${({ theme }) => theme.backgroundBase};
-  }
+  } */
 `;

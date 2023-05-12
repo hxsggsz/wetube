@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Loading = () => {
   return (
-    <svg width="30" height="30" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
           <stop stop-color="#fff" stop-opacity="0" offset="0%" />

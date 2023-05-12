@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledMenu = styled.header`
+export const menu = styled.header`
   display: flex;
   flex-direction: row;
   height: 56px;
@@ -8,10 +8,10 @@ export const StyledMenu = styled.header`
   background-color: ${(props) => props.theme.backgroundLevel1};
   border: 1px solid ${({ theme }) => theme.borderBase};
   align-items: center;
-  padding: 0 16px;
-  gap: 16px;
+  padding: 0 24px;
+  gap: 16px; 
   position: fixed;
-  width: 100%;
+  width: 100vw;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   z-index: 3;
   .logo {
@@ -24,4 +24,17 @@ export const StyledMenu = styled.header`
       fill: ${({ theme }) => theme.textColorBase};
     }
   }
+`;
+
+export const buttons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const login = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: ${({ theme}) => theme.textColorBase};
 `;

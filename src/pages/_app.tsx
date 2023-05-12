@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import '../../styles/global.css'
 import type { AppProps } from 'next/app'
 import { GlobalStyle } from '../../styles/global'
 import { ThemeProvider } from 'styled-components'
 import ColorModeContext from '../context/ColorModeContext'
-import { ThemeType } from '../../styles/themes/interfaces'
 import { lightTheme, darkTheme } from '../../styles/themes/themes'
 import { RegisterVideo } from '../components/modalRegisterVideo/registerVideo'
+import { AuthProvider } from '../context/AuthContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState("dark");
@@ -29,9 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <title>AluraTube</title>
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-        <GlobalStyle />
-        <RegisterVideo />
-        <Component {...pageProps} />
+        <AuthProvider>
+          <GlobalStyle />
+          <RegisterVideo />
+          <Component {...pageProps} />
+        </AuthProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
