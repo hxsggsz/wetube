@@ -81,7 +81,7 @@ export const RegisterVideo: React.FC = () => {
 
                   {errors?.url?.message && <Error>{errors?.url?.message}</Error>}
 
-                  <Button type='submit' isLoading={loading}>'Submit'</Button>
+                  <Button type='submit' isLoading={loading}>Submit</Button>
                 </Form>
               </Modal.Content>
             </Modal.Container>
