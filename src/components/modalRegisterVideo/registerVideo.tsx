@@ -1,6 +1,6 @@
 import { X, YoutubeLogo } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { StyledRegisterVideo } from ".";
+import { StyledRegisterVideo, Form } from ".";
 import videoService from "../../services/videoService";
 import { CloseIcon } from "../notification";
 import { Notify } from "../notification/notification";
@@ -9,10 +9,10 @@ import { useForm } from "react-hook-form";
 import { ValidationsResolvers } from "../../validations/validations";
 import { ValidationsInterface } from "../../validations/interfaceValidations";
 import { SubmitHandler } from "react-hook-form/dist/types";
-import { Loading } from "../loading/loading";
 import { Modal } from "../modal/modal";
 import { Input } from '../input/input';
 import { Button } from '../button/button';
+import { Error } from "../error/error";
 
 export const RegisterVideo: React.FC = () => {
   const service = videoService()
@@ -68,22 +68,21 @@ export const RegisterVideo: React.FC = () => {
 
               <Modal.Content>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                   <Input
                     {...register('titulo')}
                     placeholder="Titulo do video" />
                   {errors?.titulo?.message && (
-                    <span>{errors?.titulo?.message}</span>
+                    <Error>{errors?.titulo?.message}</Error>
                   )}
                   <Input
                     {...register('url')}
                     placeholder="Ensira a URL aqui" />
 
-                  {errors?.url?.message && (
-                    <span>{errors?.url?.message}</span>
-                  )}
-                  <Button type='submit' >{loading ? <Loading /> : 'Cadastrar'}</Button>
-                </form>
+                  {errors?.url?.message && <Error>{errors?.url?.message}</Error>}
+
+                  <Button type='submit' isLoading={loading}>'Submit'</Button>
+                </Form>
               </Modal.Content>
             </Modal.Container>
           </Modal.Root>
