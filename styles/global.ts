@@ -7,14 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
- 
-  /* NextJS */
-  html {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
   
   body {
     overflow-x: hidden;
@@ -36,10 +28,6 @@ export const GlobalStyle = createGlobalStyle`
       background: ${({ theme }) => theme.textColorBase};
       border-radius: 6px;
     }
-  }
-  
-  #__next {
-    flex: 1;
   }
   /* Globals */
   a {

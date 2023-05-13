@@ -28,4 +28,10 @@ export const StyledButton = styled.button`
     background: ${({ theme }) => theme.backgroundBase};
     color: ${({ theme }) => theme.textColorBase};
   }
+  
+  &:disabled {
+    cursor: not-allowed;
+    color: ${({ theme }) => theme.textColorBase};
+    background: ${({ theme }) => theme.backgroundLevel1};
+  }
 `;

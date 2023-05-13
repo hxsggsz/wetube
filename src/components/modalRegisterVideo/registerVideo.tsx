@@ -16,18 +16,15 @@ import { Error } from "../error/error";
 
 export const RegisterVideo: React.FC = () => {
   const service = videoService()
+  const [isDisabled, setIsDisabled] = useState(true)
   const [notify, setNotify] = useState(false)
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const formMethod = useForm<ValidationsInterface>({
     resolver: ValidationsResolvers,
-    defaultValues: {
-      titulo: '',
-      url: '',
-    },
   })
-  const { formState: { errors, isSubmitSuccessful }, register, handleSubmit, reset } = formMethod
+  const { formState: { errors, isSubmitSuccessful }, register, watch, handleSubmit, reset } = formMethod
 
   const getThumb = (url: string) => {
     return `https://img.youtube.com/vi/${url.split("v=")[1]}/hqdefault.jpg`
@@ -52,6 +49,12 @@ export const RegisterVideo: React.FC = () => {
       setNotify(false)
     }, 4300)
   }
+
+  useEffect(() => {
+    watch((data) => {
+      data.titulo !== "" && data.url !== "" ? setIsDisabled(false) : setIsDisabled(true)
+    })
+  }, [watch])
 
   useEffect(() => {
     reset({ titulo: '', url: '' });
@@ -81,7 +84,7 @@ export const RegisterVideo: React.FC = () => {
 
                   {errors?.url?.message && <Error>{errors?.url?.message}</Error>}
 
-                  <Button type='submit' isLoading={loading}>Submit</Button>
+                  <Button type='submit' disabled={isDisabled} isLoading={loading}>Submit</Button>
                 </Form>
               </Modal.Content>
             </Modal.Container>

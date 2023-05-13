@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { supabase } from "../../services/videoService"
 import { Modal } from "../modal/modal";
 import { Input } from "../input/input";
@@ -18,12 +18,13 @@ interface SignUpInputs {
 
 export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<boolean>> }) => {
   const { setUser } = useAuth()
+  const [isDisabled, setIsDisabled] = useState(true)
   const [SignError, setSignError] = useState("")
   const [IsLoading, setIsLoading] = useState(false)
-  const [steps, setSteps] = useState(0)
+  const [steps, setSteps] = useState(2)
   const [handlePassword, setHandlePassword] = useState("password")
 
-  const { register, handleSubmit } = useForm<SignUpInputs>()
+  const { register, handleSubmit, watch } = useForm<SignUpInputs>()
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
     setIsLoading(true)
@@ -46,6 +47,12 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
     setUser(user)
     setSteps(prev => prev + 1)
   }
+
+  useEffect(() => {
+    watch((data) => {
+      data.email !== "" && data.password !== "" && data.samePassword !== "" ? setIsDisabled(false) : setIsDisabled(true)
+    })
+  }, [watch])
 
   return (
     <Modal.Root>
@@ -85,7 +92,7 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
                   setHandlePassword={setHandlePassword}
                 />
                 <Error>{SignError}</Error>
-                <Button type="submit" isLoading={IsLoading}
+                <Button type="submit" disabled={isDisabled} isLoading={IsLoading}
                 >Criar Conta</Button>
               </motion.form>
             )}

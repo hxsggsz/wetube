@@ -11,7 +11,9 @@ export const menu = styled.header`
   padding: 0 24px;
   gap: 16px; 
   position: fixed;
-  width: 100vw;
+  top: 0;
+  left: 0;
+  width: 100%;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   z-index: 3;
   .logo {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { supabase } from "../../services/videoService"
 import { Modal } from '../modal/modal';
 import { Input } from '../input/input';
@@ -9,7 +9,7 @@ import * as style from ".";
 import { LockOpen } from "phosphor-react";
 import { RecoverPassword } from './recoverPassword';
 import { Error } from "../error/error";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 interface LoginInputs {
   email: string
@@ -18,12 +18,13 @@ interface LoginInputs {
 
 export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boolean>> }) => {
   const { setUser } = useAuth()
+  const [isDisabled, setIsDisabled] = useState(true)
   const [resetPass, setResetPass] = useState(false)
   const [LoginError, setLoginError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [handlePassword, setHandlePassword] = useState("password")
 
-  const { register, handleSubmit } = useForm<LoginInputs>()
+  const { register, handleSubmit, watch } = useForm<LoginInputs>()
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     setIsLoading(true)
@@ -33,7 +34,6 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
     })
     setLogin(prev => !prev)
     setUser(user)
-    console.log(user)
 
     if (error) {
       setLogin(true)
@@ -42,6 +42,12 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
 
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    watch((data) => {
+      data.email !== "" && data.password !== "" ? setIsDisabled(false) : setIsDisabled(true)
+    })
+  }, [watch])
 
   return (
     <Modal.Root>
@@ -77,7 +83,7 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
                     <p>Não lembra sua senha?</p>
                   </style.resetPassword>
 
-                  <Button type="submit" isLoading={isLoading}>Log In</Button>
+                  <Button disabled={isDisabled} type="submit" isLoading={isLoading}>Log In</Button>
                 </style.form>
                 <Error>{LoginError}</Error>
               </style.Wrapper>

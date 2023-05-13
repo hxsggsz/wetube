@@ -14,9 +14,11 @@ interface RecoverPasswordInputs {
 
 export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetStateAction<boolean>> }) => {
   const [recError, setRecError] = useState('')
+  const [isDisabled, setIsDisabled] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [isSucess, setIsSucess] = useState(false)
-  const { formState: { isSubmitSuccessful }, reset, register, handleSubmit } = useForm<RecoverPasswordInputs>()
+  const { formState: { isSubmitSuccessful }, reset, watch, register, handleSubmit } = useForm<RecoverPasswordInputs>()
+
 
   const onSubmit: SubmitHandler<RecoverPasswordInputs> = async (data) => {
     setIsLoading(true)
@@ -32,6 +34,12 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
     setIsLoading(false)
     setIsSucess(true)
   }
+
+  useEffect(() => {
+    watch((data) => {
+      data.RecoverPassword !== "" ? setIsDisabled(false) : setIsDisabled(true)
+    })
+  }, [watch])
 
   useEffect(() => {
     reset({ RecoverPassword: '' });
@@ -57,7 +65,7 @@ export const RecoverPassword = ({ setResetPass }: { setResetPass: Dispatch<SetSt
           <p>Lembrou sua senha?</p>
         </style.resetPassword>
 
-        <Button type="submit" isLoading={isLoading}>Enviar Email</Button>
+        <Button type="submit" disabled={isDisabled} isLoading={isLoading}>Enviar Email</Button>
       </style.form>
 
       {isSucess && <p style={{ marginTop: "50px" }}>Verifique o seu E-mail para resetar sua senha!</p>}

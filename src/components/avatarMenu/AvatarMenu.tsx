@@ -1,10 +1,10 @@
-import { 
-  AvatarRootStyled, 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuPortal, 
+import {
+  AvatarRootStyled,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuPortal,
   DropdownMenuTrigger
- } from ".";
+} from ".";
 import { SignOut } from "phosphor-react";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../services/videoService";
@@ -16,6 +16,10 @@ export const AvatarMenu = () => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     setUser(null)
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("profilePicture", "")
+    }
   }
 
   return (

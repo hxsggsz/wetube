@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { supabase } from "../../services/videoService"
 import { Modal } from "../modal/modal";
 import { Input } from "../input/input";
@@ -15,11 +15,11 @@ interface UsernameInputs {
 
 export const UserName = ({ setSteps }: { setSteps: Dispatch<SetStateAction<number>> }) => {
   const { setUser } = useAuth()
-  const [UsernameError, setUsernameError] = useState("")
   const [IsLoading, setIsLoading] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [UsernameError, setUsernameError] = useState("")
 
-  const { register, handleSubmit } = useForm<UsernameInputs>()
-
+  const { register, handleSubmit, watch } = useForm<UsernameInputs>()
 
   const onSubmit: SubmitHandler<UsernameInputs> = async (data) => {
     setIsLoading(true)
@@ -41,6 +41,12 @@ export const UserName = ({ setSteps }: { setSteps: Dispatch<SetStateAction<numbe
     setSteps(prev => prev + 1)
   }
 
+  useEffect(() => {
+    watch((data) => {
+      data.name !== "" && data.username !== "" ? setIsDisabled(false) : setIsDisabled(true)
+    })
+  }, [watch])
+
   return (
     <motion.form
       style={{ width: "100%" }}
@@ -52,7 +58,7 @@ export const UserName = ({ setSteps }: { setSteps: Dispatch<SetStateAction<numbe
       <Input {...register("name")} placeholder="Nome" />
       <Input {...register("username")} placeholder="Username" />
       <Error>{UsernameError}</Error>
-      <Button type="submit" isLoading={IsLoading}
+      <Button type="submit" disabled={isDisabled} isLoading={IsLoading}
       >Criar Conta</Button>
     </motion.form>
   )

@@ -29,7 +29,7 @@ export const Menu: React.FC = () => {
         <style.buttons>
           {!user ? <>
             <style.login onClick={() => setLogin(prev => !prev)}>Log In</style.login>
-            <Button>Sign Up</Button>
+            <Button onClick={() => setSignUp(prev => !prev)}>Sign Up</Button>
           </>
             : <AvatarMenu />}
           
