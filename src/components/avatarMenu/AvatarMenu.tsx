@@ -1,22 +1,46 @@
-import * as Avatar from '@radix-ui/react-avatar';
-import { useAuth } from '../../context/AuthContext';
-import { AvatarWrapper } from '.';
+import { 
+  AvatarRootStyled, 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuPortal, 
+  DropdownMenuTrigger
+ } from ".";
+import { SignOut } from "phosphor-react";
+import { useAuth } from "../../context/AuthContext";
+import { supabase } from "../../services/videoService";
+import { DropdownMenuItem, AvatarImageStyled } from "./index";
 
 export const AvatarMenu = () => {
-  const { image, user } = useAuth()
+  const { image, user, setUser } = useAuth()
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut()
+    setUser(null)
+  }
 
   return (
-    <AvatarWrapper>
-      <Avatar.Root className="AvatarRoot">
-        <Avatar.Image
-          className="AvatarImage"
-          src={image}
-          alt={`image de perfil do ${user?.user_metadata.name}`}
-        />
-        <Avatar.Fallback className="AvatarFallback" delayMs={600}>
-          CT
-        </Avatar.Fallback>
-      </Avatar.Root>
-    </AvatarWrapper>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <AvatarRootStyled>
+            <AvatarImageStyled
+              className="AvatarImage"
+              src={image}
+              alt={`imagem de perfil do ${user?.user_metadata?.name}`}
+            />
+          </AvatarRootStyled>
+        </DropdownMenuTrigger>
+        <DropdownMenuPortal>
+
+          <DropdownMenuContent sideOffset={5}>
+
+            <DropdownMenuItem onClick={signOut}>
+              Sair <SignOut size={18} weight="bold" />
+            </DropdownMenuItem>
+
+          </DropdownMenuContent>
+        </DropdownMenuPortal>
+      </DropdownMenu >
+    </>
   )
 }

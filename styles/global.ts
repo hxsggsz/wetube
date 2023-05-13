@@ -14,29 +14,30 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100%;
-    overflow-x: hidden;
   }
-
+  
   body {
+    overflow-x: hidden;
     font-family: sans-serif;
     width: 100vw;
     display: flex;
-    flex: 1;
+    align-items: center;
+    justify-content: center;
     background-color: ${({ theme }) => theme.backgroundBase};
     color: ${({ theme }) => theme.textColorBase};
 
      /* scrollbar */
-  &::-webkit-scrollbar {
-    width: .4rem;
-    background: inherit;
-    border: none;
+    &::-webkit-scrollbar {
+      width: .4rem;
+      background: inherit;
+      border: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.textColorBase};
+      border-radius: 6px;
+    }
   }
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.textColorBase};
-    border-radius: 6px;
-  }
-  }
+  
   #__next {
     flex: 1;
   }
