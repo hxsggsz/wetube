@@ -6,7 +6,8 @@ import uuid from "react-uuid"
 import { Img, InputFile, Label, Wrapper } from ".";
 
 export const ProfilePicture = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<boolean>> }) => {
-  const { user, image, setImage } = useAuth()
+  const { user, setUser } = useAuth()
+  const [image, setImage] = useState("")
   const [UsernameError, setUsernameError] = useState("")
 
   const addImage = async (ev: any) => {
@@ -21,7 +22,12 @@ export const ProfilePicture = ({ setSignUp }: { setSignUp: Dispatch<SetStateActi
         const CDNURL = "https://sdrsduyvpgydxlxzswzl.supabase.co/storage/v1/object/public/"
         setImage(CDNURL + data.Key)
         
-        localStorage.setItem("profilePicture", JSON.stringify(CDNURL + data.Key))
+        const { user, error } = await supabase.auth.update({
+          data: {
+            profilePic: CDNURL + data.Key
+          }
+        })
+        setUser(user)
       }
 
     if (error) {
@@ -31,7 +37,7 @@ export const ProfilePicture = ({ setSignUp }: { setSignUp: Dispatch<SetStateActi
 
     setTimeout(() => {
       setSignUp(prev => !prev)
-    }, 5000)
+    }, 4000)
   }
 
   return (

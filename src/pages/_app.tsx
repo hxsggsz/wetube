@@ -6,6 +6,7 @@ import ColorModeContext from '../context/ColorModeContext'
 import { lightTheme, darkTheme } from '../../styles/themes/themes'
 import { RegisterVideo } from '../components/modalRegisterVideo/registerVideo'
 import { AuthProvider } from '../context/AuthContext'
+import { Menu } from '../components/menu/menu';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState("dark");
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
         <AuthProvider>
           <GlobalStyle />
+          <Menu />
           <RegisterVideo />
           <Component {...pageProps} />
         </AuthProvider>

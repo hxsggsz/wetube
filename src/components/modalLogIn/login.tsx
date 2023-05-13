@@ -36,7 +36,6 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
     setUser(user)
 
     if (error) {
-      setLogin(true)
       setLoginError(error.message)
     }
 

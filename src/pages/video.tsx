@@ -9,7 +9,6 @@ const Video: NextPage = () => {
 
   return (
     <>
-      <Menu />
       <StyledVideo>
         <Iframe src={`https://www.youtube.com/embed/${router.query.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></Iframe>
 

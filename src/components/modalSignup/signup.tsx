@@ -18,10 +18,10 @@ interface SignUpInputs {
 
 export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<boolean>> }) => {
   const { setUser } = useAuth()
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [steps, setSteps] = useState(0)
   const [SignError, setSignError] = useState("")
   const [IsLoading, setIsLoading] = useState(false)
-  const [steps, setSteps] = useState(2)
+  const [isDisabled, setIsDisabled] = useState(true)
   const [handlePassword, setHandlePassword] = useState("password")
 
   const { register, handleSubmit, watch } = useForm<SignUpInputs>()

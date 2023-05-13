@@ -52,7 +52,7 @@ function Timeline() {
               >
 
                 <Link href={{
-                  pathname: `/v`,
+                  pathname: `/video`,
                   query: {
                     id: playlistId,
                     title: playlist.title
