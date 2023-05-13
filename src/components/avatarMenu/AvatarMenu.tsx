@@ -10,9 +10,11 @@ import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../services/videoService";
 import { DropdownMenuItem, AvatarImageStyled } from "./index";
 import Link from "next/link";
+import { useTheme } from "../../context/ThemeContext";
 
 export const AvatarMenu = () => {
   const { user, setUser } = useAuth()
+  const { color, handleColor} = useTheme()
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
@@ -35,12 +37,17 @@ export const AvatarMenu = () => {
 
           <DropdownMenuContent sideOffset={5}>
 
+            <DropdownMenuItem onSelect={() => handleColor(color === "dark" ? "light" : "dark")}>
+              Mudar tema
+              <User size={18} weight="bold" />
+            </DropdownMenuItem>
+            
             <DropdownMenuItem>
               <Link href="/profile">Meu perfil</Link>
               <User size={18} weight="bold" />
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={signOut}>
+            <DropdownMenuItem onSelect={signOut}>
               Sair <SignOut size={18} weight="bold" />
             </DropdownMenuItem>
 

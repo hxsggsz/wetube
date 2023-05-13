@@ -5,7 +5,7 @@ export const menu = styled.header`
   flex-direction: row;
   height: 56px;
   justify-content: space-between;
-  background-color: ${(props) => props.theme.backgroundLevel1};
+  background-color: ${(props) => props.theme.backgroundBase};
   border: 1px solid ${({ theme }) => theme.borderBase};
   align-items: center;
   padding: 0 24px;
