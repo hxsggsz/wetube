@@ -8,6 +8,7 @@ export const StyledButton = styled.button`
   padding: 12px 16px;
   border: none;
   border-radius: 2px;
+  white-space: nowrap;
   cursor: pointer;
   color: ${({ theme }) => theme.textColorBase};
   font-size: 16px;

@@ -20,15 +20,13 @@ const AvatarImage = styled(Avatar.Image)`
   cursor: pointer;
   object-fit: cover;
   border-radius: inherit;
+border: 2px solid red;
 `;
 
 const StyledTrigger = styled(DropdownMenuPrimitive.Trigger)`
-  border: 2px solid red;
 `;
 
-const StyledPortal = styled(DropdownMenuPrimitive.Portal)`
-  /* position: absolute; */
-`;
+const StyledPortal = styled(DropdownMenuPrimitive.Portal)``;
 
 const StyledContent = styled(DropdownMenuPrimitive.Content)`
   min-width: 220px;
@@ -37,6 +35,10 @@ const StyledContent = styled(DropdownMenuPrimitive.Content)`
   margin-right: 5px;
   padding: 5px;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+
+  @media(max-width: 768px) {
+    /* height: 70px; */
+  }
 `;
 
 const StyledItem = styled(DropdownMenuPrimitive.Item)`
@@ -55,6 +57,12 @@ const StyledItem = styled(DropdownMenuPrimitive.Item)`
   padding-left: 25px;
   user-select: none;
   outline: none;
+
+  
+  @media(max-width: 768px) {
+    font-size: 16px;
+    padding: 20px 5px;
+  }
 
   &:focus {
     background: red;

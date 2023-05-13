@@ -16,14 +16,26 @@ export const menu = styled.header`
   width: 100%;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   z-index: 3;
-  .logo {
-    width: 100%;
-    max-width: 200px;
-    @media (min-width: 600px) {
-      max-width: 127px;
+  
+  .text {
+    fill: ${({ theme }) => theme.textColorBase};
+  }
+
+  & > a {
+    .logoMobile {
+      display: none;
+
+      @media(max-width: 773px) {
+        display: flex;
+      }
     }
-    .text {
-      fill: ${({ theme }) => theme.textColorBase};
+
+    .logo {
+      display: flex;
+
+      @media(max-width: 773px) {
+        display: none;
+      }
     }
   }
 `;
@@ -34,9 +46,16 @@ export const buttons = styled.div`
   gap: 10px;
 `;
 
+export const ButtonsWrapper = styled.div`
+  @media (max-width: 680px) {
+    display: none;
+  }
+`;
+
 export const login = styled.button`
   cursor: pointer;
+  white-space: nowrap;
   background: none;
   border: none;
-  color: ${({ theme}) => theme.textColorBase};
+  color: ${({ theme }) => theme.textColorBase};
 `;

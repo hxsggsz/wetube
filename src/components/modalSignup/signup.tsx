@@ -9,6 +9,8 @@ import { useAuth } from "../../context/AuthContext";
 import { UserName } from "./username";
 import { ProfilePicture } from "./profirePicture";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { handleShowSignUp } from "../../redux/authModal";
 
 interface SignUpInputs {
   email: string
@@ -16,13 +18,14 @@ interface SignUpInputs {
   samePassword: string
 }
 
-export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<boolean>> }) => {
+export const ModalSignUp = () => {
   const { setUser } = useAuth()
   const [steps, setSteps] = useState(0)
   const [SignError, setSignError] = useState("")
   const [IsLoading, setIsLoading] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
   const [handlePassword, setHandlePassword] = useState("password")
+  const dispatch = useDispatch()
 
   const { register, handleSubmit, watch } = useForm<SignUpInputs>()
 
@@ -30,7 +33,6 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
     setIsLoading(true)
     if (data.password !== data.samePassword) {
       setSignError("As senhas precisam ser idênticas!")
-      return
     }
 
     const { user, error } = await supabase.auth.signUp({
@@ -40,7 +42,6 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
 
     if (error) {
       setSignError(error.message)
-      return
     }
 
     setIsLoading(false)
@@ -57,7 +58,7 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
   return (
     <Modal.Root>
       <Modal.Container>
-        <Modal.Close onClose={() => setSignUp(prev => !prev)} />
+        <Modal.Close onClose={() => dispatch(handleShowSignUp())} />
 
         <Modal.Content>
           <AnimatePresence>
@@ -100,7 +101,7 @@ export const ModalSignUp = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<
 
           <AnimatePresence>
             {steps === 1 && <UserName setSteps={setSteps} />}
-            {steps === 2 && <ProfilePicture setSignUp={setSignUp} />}
+            {steps === 2 && <ProfilePicture />}
           </AnimatePresence>
         </Modal.Content>
 

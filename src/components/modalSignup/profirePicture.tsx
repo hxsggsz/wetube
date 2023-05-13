@@ -4,11 +4,14 @@ import { Error } from "../error/error";
 import { useAuth } from "../../context/AuthContext";
 import uuid from "react-uuid"
 import { Img, InputFile, Label, Wrapper } from ".";
+import { useDispatch } from "react-redux";
+import { handleShowSignUp } from "../../redux/authModal";
 
-export const ProfilePicture = ({ setSignUp }: { setSignUp: Dispatch<SetStateAction<boolean>> }) => {
+export const ProfilePicture = () => {
   const { user, setUser } = useAuth()
   const [image, setImage] = useState("")
   const [UsernameError, setUsernameError] = useState("")
+  const dispatch = useDispatch()
 
   const addImage = async (ev: any) => {
     const useId = uuid()
@@ -36,7 +39,7 @@ export const ProfilePicture = ({ setSignUp }: { setSignUp: Dispatch<SetStateActi
     }
 
     setTimeout(() => {
-      setSignUp(prev => !prev)
+      dispatch(handleShowSignUp())
     }, 4000)
   }
 

@@ -10,19 +10,22 @@ import { LockOpen } from "phosphor-react";
 import { RecoverPassword } from './recoverPassword';
 import { Error } from "../error/error";
 import { AnimatePresence } from "framer-motion";
+import { handleShowLogIn } from "../../redux/authModal";
+import { useDispatch } from "react-redux";
 
 interface LoginInputs {
   email: string
   password: string
 }
 
-export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boolean>> }) => {
+export const ModalLogin = () => {
   const { setUser } = useAuth()
   const [isDisabled, setIsDisabled] = useState(true)
   const [resetPass, setResetPass] = useState(false)
   const [LoginError, setLoginError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [handlePassword, setHandlePassword] = useState("password")
+  const dispatch = useDispatch()
 
   const { register, handleSubmit, watch } = useForm<LoginInputs>()
 
@@ -32,7 +35,7 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
       email: data.email,
       password: data.password
     })
-    setLogin(prev => !prev)
+    dispatch(handleShowLogIn())
     setUser(user)
 
     if (error) {
@@ -51,7 +54,7 @@ export const ModalLogin = ({ setLogin }: { setLogin: Dispatch<SetStateAction<boo
   return (
     <Modal.Root>
       <Modal.Container>
-        <Modal.Close onClose={() => setLogin(prev => !prev)} />
+        <Modal.Close onClose={() => dispatch(handleShowLogIn())} />
 
         <Modal.Content>
           <AnimatePresence>

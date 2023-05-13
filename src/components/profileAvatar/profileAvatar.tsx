@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { GetStaticProps } from 'next'
+import { SealCheck } from "@phosphor-icons/react"
 import * as style from '.'
 import { useAuth } from '../../context/AuthContext'
 
@@ -17,7 +16,7 @@ export const ProfileAvatar = () => {
             alt={`avatar do ${user?.user_metadata?.name}`}
           />
           <style.Username>
-            <h1>{user?.user_metadata?.name}</h1>
+            <h1>{user?.user_metadata?.name}</h1><span><SealCheck size={36} weight="bold" /></span>
             <span>{`@${user?.user_metadata?.username}`}</span>
           </style.Username>
         </style.UserWrapper>

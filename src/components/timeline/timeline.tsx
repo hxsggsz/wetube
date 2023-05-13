@@ -1,6 +1,5 @@
 import { StyledTimeline } from ".";
 import { useContext, useEffect, useState } from "react";
-import { SearchContext } from '../../pages';
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "../../services/videoService";
@@ -13,7 +12,6 @@ interface Video {
 }
 
 function Timeline() {
-  const { valorDoFiltro }: any = useContext(SearchContext)
   const [playlists, setPlaylists] = useState<Video[]>([]);
 
   useEffect(() => {
@@ -33,11 +31,11 @@ function Timeline() {
   return (
     <StyledTimeline>
       {playlists
-        .filter((video) => {
-          const titleNormalized = video.title.toLowerCase()
-          const searchValueNormalized = valorDoFiltro.toLowerCase()
-          return titleNormalized.includes(searchValueNormalized)
-        })
+        // .filter((video) => {
+        //   const titleNormalized = video.title.toLowerCase()
+        //   const searchValueNormalized = valorDoFiltro.toLowerCase()
+        //   return titleNormalized.includes(searchValueNormalized)
+        // })
         .reverse()
         //como os videos são inseridos em um array, o video adicionado sempre fica por ultimo, revertendo o array, ele primeiro a aparecer em tela.
         .map((playlist) => {

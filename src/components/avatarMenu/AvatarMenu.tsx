@@ -5,7 +5,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger
 } from ".";
-import { SignOut, User } from "phosphor-react";
+import { SignOut, UserCircle, Sun, Moon } from "phosphor-react";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../services/videoService";
 import { DropdownMenuItem, AvatarImageStyled } from "./index";
@@ -39,12 +39,12 @@ export const AvatarMenu = () => {
 
             <DropdownMenuItem onSelect={() => handleColor(color === "dark" ? "light" : "dark")}>
               Mudar tema
-              <User size={18} weight="bold" />
+              {color === "dark" ? <Sun size={18} weight="bold" /> : <Moon size={18} weight="bold" /> }
             </DropdownMenuItem>
             
             <DropdownMenuItem>
               <Link href="/profile">Meu perfil</Link>
-              <User size={18} weight="bold" />
+              <UserCircle size={18} weight="bold" />
             </DropdownMenuItem>
 
             <DropdownMenuItem onSelect={signOut}>
