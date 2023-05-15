@@ -40,13 +40,10 @@ export const menu = styled.header`
   }
 `;
 
-export const buttons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
 export const ButtonsWrapper = styled.div`
+display: flex;
+align-items: center;
+gap: 10px;
   @media (max-width: 680px) {
     display: none;
   }

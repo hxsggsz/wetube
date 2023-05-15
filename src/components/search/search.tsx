@@ -1,17 +1,16 @@
 import { InputHTMLAttributes, useState } from "react";
-import { StyledSearch } from ".";
-import { SearchContext } from "../../pages";
+import * as style from ".";
 
-export interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {}
+export interface SearchProps extends InputHTMLAttributes<HTMLInputElement> { }
 
-export const Search: React.FC<SearchProps> = ({ ...props }: SearchProps) => {
+export const Search = ({ ...props }: SearchProps) => {
 
   return (
-    <StyledSearch>
-      <input type="text" {...props} />
-      <button>
+    <style.SearchWrapper>
+      <style.SearchInput type="text" {...props} />
+      <style.SearchButton>
         🔎
-      </button>
-    </StyledSearch  >
+      </style.SearchButton>
+    </style.SearchWrapper  >
   )
 }

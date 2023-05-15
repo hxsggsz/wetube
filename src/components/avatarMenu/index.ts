@@ -20,7 +20,12 @@ const AvatarImage = styled(Avatar.Image)`
   cursor: pointer;
   object-fit: cover;
   border-radius: inherit;
-border: 2px solid red;
+  border: 2px solid red;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 250ms ease-in-out;
+  }
 `;
 
 const StyledTrigger = styled(DropdownMenuPrimitive.Trigger)`
@@ -34,15 +39,14 @@ const StyledContent = styled(DropdownMenuPrimitive.Content)`
   border-radius: 6px;
   margin-right: 5px;
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
-
-  @media(max-width: 768px) {
-    /* height: 70px; */
-  }
 `;
 
 const StyledItem = styled(DropdownMenuPrimitive.Item)`
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   line-height: 1;
   color: ${({ theme }) => theme.title};
@@ -60,7 +64,6 @@ const StyledItem = styled(DropdownMenuPrimitive.Item)`
 
   
   @media(max-width: 768px) {
-    font-size: 16px;
     padding: 20px 5px;
   }
 

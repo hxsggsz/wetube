@@ -1,6 +1,6 @@
 import Link from "next/link";
 import * as style from '.'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Search } from '../search/search';
 import { Button } from '../button/button';
 import { ModalLogin } from '../modalLogIn/login';
@@ -18,8 +18,13 @@ import { handleShowLogIn, handleShowSignUp } from "../../redux/authModal";
 
 export const Menu: React.FC = () => {
   const { user } = useAuth()
-  const state = useSelector((state: RootState) => state.sliceAuthModal)
+  const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
+  const state = useSelector((state: RootState) => state.sliceAuthModal)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   return (
     <>
@@ -29,16 +34,15 @@ export const Menu: React.FC = () => {
           <LogoMobile />
         </Link>
         <Search />
-        <style.buttons>
-          {!user ? <>
+        {user || isLoading ? <AvatarMenu /> : (
+          <>
             <style.ButtonsWrapper>
               <MenuBurger />
               <style.login onClick={() => dispatch(handleShowLogIn())}>Log In</style.login>
               <Button onClick={() => dispatch(handleShowSignUp())}>Sign Up</Button>
             </style.ButtonsWrapper>
           </>
-            : <AvatarMenu />}
-        </style.buttons>
+        )}
       </style.menu >
 
       <AnimatePresence>

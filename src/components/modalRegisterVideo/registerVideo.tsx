@@ -1,7 +1,6 @@
 import { X, YoutubeLogo } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { StyledRegisterVideo, Form } from ".";
-import videoService from "../../services/videoService";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import videoService, { supabase } from "../../services/videoService";
 import { CloseIcon } from "../notification";
 import { Notify } from "../notification/notification";
 import { AnimatePresence } from "framer-motion";
@@ -13,17 +12,21 @@ import { Modal } from "../modal/modal";
 import { Input } from '../input/input';
 import { Button } from '../button/button';
 import { Error } from "../error/error";
+import { SelectCategories } from "../select/select";
+import { useAuth } from "../../context/AuthContext";
+import { Form } from ".";
 
-export const RegisterVideo: React.FC = () => {
+export const RegisterVideo = ({ setIsRegister }: { setIsRegister: Dispatch<SetStateAction<boolean>> }) => {
   const service = videoService()
-  const [isDisabled, setIsDisabled] = useState(true)
+  const { user: oldUser, setUser } = useAuth()
+  const [error, setError] = useState("")
+  const [select, setSelect] = useState("")
   const [notify, setNotify] = useState(false)
-  const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
-  const formMethod = useForm<ValidationsInterface>({
-    resolver: ValidationsResolvers,
-  })
+  const formMethod = useForm<ValidationsInterface>({ resolver: ValidationsResolvers })
+
   const { formState: { errors, isSubmitSuccessful }, register, watch, handleSubmit, reset } = formMethod
 
   const getThumb = (url: string) => {
@@ -32,17 +35,29 @@ export const RegisterVideo: React.FC = () => {
 
   const onSubmit: SubmitHandler<ValidationsInterface> = async (data) => {
     setLoading(true)
-    await new Promise(r => setTimeout(r, 2000))
 
-    await service.setNewVIdeo()
+    const { error, data: postedVideo } = await service.setNewVIdeo()
       .insert({
+        category: select,
+        author: oldUser?.user_metadata.username,
+        author_image: oldUser?.user_metadata.profilePic,
         title: data.titulo,
         url: data.url,
         thumb: getThumb(data.url)
       })
 
+    if (!error) {
+      const { user, error } = await supabase.auth.update({
+        data: {
+          myVideos: [...oldUser?.user_metadata.myVideos, postedVideo]
+        }
+      })
+      setUser(user)
+    }
+
+    error && setError(error.message)
     setLoading(false)
-    setVisible(!visible)
+    setIsRegister(prev => !prev)
 
     setNotify(true)
     setTimeout(() => {
@@ -52,45 +67,45 @@ export const RegisterVideo: React.FC = () => {
 
   useEffect(() => {
     watch((data) => {
-      data.titulo !== "" && data.url !== "" ? setIsDisabled(false) : setIsDisabled(true)
+      data.titulo !== "" && data.url !== "" && select !== "" ? setIsDisabled(false) : setIsDisabled(true)
     })
-  }, [watch])
+  }, [watch, select])
 
   useEffect(() => {
     reset({ titulo: '', url: '' });
   }, [isSubmitSuccessful])
 
   return (
-    <StyledRegisterVideo>
-      <button onClick={() => setVisible(!visible)} className='add-video'>+</button>
+    <>
       <AnimatePresence>
-        {visible && (
-          <Modal.Root>
-            <Modal.Container>
-              <Modal.Close onClose={() => setVisible(!visible)} />
+        <Modal.Root>
+          <Modal.Container>
+            <Modal.Close onClose={() => setIsRegister(prev => !prev)} />
 
-              <Modal.Content>
+            <Modal.Content>
 
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Input
-                    {...register('titulo')}
-                    placeholder="Titulo do video" />
-                  {errors?.titulo?.message && (
-                    <Error>{errors?.titulo?.message}</Error>
-                  )}
-                  <Input
-                    {...register('url')}
-                    placeholder="Ensira a URL aqui" />
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <SelectCategories setSelect={setSelect} />
+                <Input
+                  {...register('titulo')}
+                  placeholder="Titulo do video" />
+                {errors?.titulo?.message && (
+                  <Error>{errors?.titulo?.message}</Error>
+                )}
+                <Input
+                  {...register('url')}
+                  placeholder="Ensira a URL aqui" />
 
-                  {errors?.url?.message && <Error>{errors?.url?.message}</Error>}
-
-                  <Button type='submit' disabled={isDisabled} isLoading={loading}>Submit</Button>
-                </Form>
-              </Modal.Content>
-            </Modal.Container>
-          </Modal.Root>
-        )}
+                {errors?.url?.message && <Error>{errors?.url?.message}</Error>}
+                <Error>{error}</Error>
+                <Button type='submit' disabled={isDisabled} isLoading={loading}>Submit</Button>
+              </Form>
+            </Modal.Content>
+          </Modal.Container>
+        </Modal.Root>
       </AnimatePresence>
+
+
       <AnimatePresence>
         {notify && (
           <Notify.Root>
@@ -116,7 +131,7 @@ export const RegisterVideo: React.FC = () => {
           </Notify.Root>
         )}
       </AnimatePresence>
-    </StyledRegisterVideo >
-  );
+    </>
+  )
 }
 

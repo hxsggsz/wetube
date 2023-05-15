@@ -1,73 +1,64 @@
-import { StyledTimeline } from ".";
-import { useContext, useEffect, useState } from "react";
+import { StyledCategory, StyledTimeline, StyledTimelineWrapper } from ".";
+import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "../../services/videoService";
+import { CardTimeline } from '../cards/cardTimeline/cardTimeline';
+import { CardTimelineSkeleton } from "../cards/cardTimeline/cardTimelineSkeleton";
 
 interface Video {
   id: number
   thumb: string
   title: string
   url: string
+  author: string
+  author_image: string
+  category: string
 }
 
-function Timeline() {
-  const [playlists, setPlaylists] = useState<Video[]>([]);
+export const Timeline = () => {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [timeline, setTimeline] = useState<Video[]>([]);
+
+  const tech = timeline.filter(videos => videos.category === "Técnologia")
+  const food = timeline.filter(videos => videos.category === "Culinária")
+  const games = timeline.filter(videos => videos.category === "Jogos")
+  const animes = timeline.filter(videos => videos.category === "Animes")
+  const musics = timeline.filter(videos => videos.category === "Música")
 
   useEffect(() => {
     async function newTimeline() {
       const { data: video } = await supabase.from('video').select('*')
-
-      if (video) { setPlaylists(video) }
+      video && setTimeline(video)
     }
     supabase
       .from('video')
       .on('INSERT', (payload) => newTimeline()) //atualiza os videos na timeline
       .subscribe()
-
     newTimeline() // mostra a timeline
+
+    setIsLoading(false)
   }, [])
 
   return (
-    <StyledTimeline>
-      {playlists
-        // .filter((video) => {
-        //   const titleNormalized = video.title.toLowerCase()
-        //   const searchValueNormalized = valorDoFiltro.toLowerCase()
-        //   return titleNormalized.includes(searchValueNormalized)
-        // })
-        .reverse()
-        //como os videos são inseridos em um array, o video adicionado sempre fica por ultimo, revertendo o array, ele primeiro a aparecer em tela.
-        .map((playlist) => {
-          const regex = new RegExp("(?<=v=).+");
-          const playlistId = playlist.url.match(regex);
-          return (
-            <AnimatePresence key={playlist.id}>
-              <motion.section
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-              >
-
-                <Link href={{
-                  pathname: `/video`,
-                  query: {
-                    id: playlistId,
-                    title: playlist.title
-                  }
-                }}>
-                  <img src={playlist.thumb} />
-                  <span>
-                    {playlist.title}
-                  </span>
-                </Link>
-                )
-              </motion.section>
-            </AnimatePresence>
-          )
-        })}
-    </StyledTimeline>
+    <StyledTimelineWrapper ref={ref}>
+      <StyledCategory>
+        <h1>Os melhores jogos:</h1>
+        <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+          {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (games.map(videos => (
+            <CardTimeline
+              key={videos.id}
+              url={videos.url}
+              thumb={videos.thumb}
+              title={videos.title}
+              isLoading={isLoading}
+              author={videos.author}
+              author_image={videos.author_image}
+            />
+          )))}
+        </StyledTimeline>
+      </StyledCategory>
+    </StyledTimelineWrapper >
   )
 }
-
-export default Timeline

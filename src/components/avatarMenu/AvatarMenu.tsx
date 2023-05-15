@@ -1,8 +1,8 @@
 import {
-  AvatarRootStyled,
   DropdownMenu,
-  DropdownMenuContent,
+  AvatarRootStyled,
   DropdownMenuPortal,
+  DropdownMenuContent,
   DropdownMenuTrigger
 } from ".";
 import { SignOut, UserCircle, Sun, Moon } from "phosphor-react";
@@ -11,13 +11,18 @@ import { supabase } from "../../services/videoService";
 import { DropdownMenuItem, AvatarImageStyled } from "./index";
 import Link from "next/link";
 import { useTheme } from "../../context/ThemeContext";
+import { SetStateAction, useState } from "react";
+import { RegisterVideo } from "../modalRegisterVideo/registerVideo";
+import { AnimatePresence } from "framer-motion";
+import { Video } from "@phosphor-icons/react";
 
 export const AvatarMenu = () => {
   const { user, setUser } = useAuth()
-  const { color, handleColor} = useTheme()
+  const [isRegister, setIsRegister] = useState(false)
+  const { color, handleColor } = useTheme()
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
+    await supabase.auth.signOut()
     setUser(null)
   }
 
@@ -25,6 +30,7 @@ export const AvatarMenu = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
+
           <AvatarRootStyled>
             <AvatarImageStyled
               className="AvatarImage"
@@ -32,6 +38,7 @@ export const AvatarMenu = () => {
               alt={`imagem de perfil do ${user?.user_metadata?.name}`}
             />
           </AvatarRootStyled>
+
         </DropdownMenuTrigger>
         <DropdownMenuPortal>
 
@@ -39,21 +46,30 @@ export const AvatarMenu = () => {
 
             <DropdownMenuItem onSelect={() => handleColor(color === "dark" ? "light" : "dark")}>
               Mudar tema
-              {color === "dark" ? <Sun size={18} weight="bold" /> : <Moon size={18} weight="bold" /> }
+              {color === "dark" ? <Sun size={25} weight="bold" /> : <Moon size={25} weight="bold" />}
             </DropdownMenuItem>
-            
+
             <DropdownMenuItem>
               <Link href="/profile">Meu perfil</Link>
-              <UserCircle size={18} weight="bold" />
+              <UserCircle size={25} weight="bold" />
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onSelect={() => setIsRegister(prev => !prev)}>
+              Adicionar video
+              <Video size={25} weight="bold" />
             </DropdownMenuItem>
 
             <DropdownMenuItem onSelect={signOut}>
-              Sair <SignOut size={18} weight="bold" />
+              Sair <SignOut size={25} weight="bold" />
             </DropdownMenuItem>
 
           </DropdownMenuContent>
         </DropdownMenuPortal>
       </DropdownMenu >
+
+      <AnimatePresence>
+        {isRegister && <RegisterVideo setIsRegister={setIsRegister} />}
+      </AnimatePresence>
     </>
   )
 }
