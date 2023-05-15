@@ -36,8 +36,8 @@ export const Menu: React.FC = () => {
         <Search />
         {user || isLoading ? <AvatarMenu /> : (
           <>
-            <style.ButtonsWrapper>
               <MenuBurger />
+            <style.ButtonsWrapper>
               <style.login onClick={() => dispatch(handleShowLogIn())}>Log In</style.login>
               <Button onClick={() => dispatch(handleShowSignUp())}>Sign Up</Button>
             </style.ButtonsWrapper>
