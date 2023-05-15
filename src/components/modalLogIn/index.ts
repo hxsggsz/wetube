@@ -7,6 +7,7 @@ export const Wrapper = styled(motion.div)`
 
 export const form = styled(motion.form)`
   width: 100%;
+  overflow: hidden;
 `;
 
 export const resetPassword = styled.div`

@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const root = styled.div`
-  width: 100vw;
-  height: 100vh;
+  z-index: 9999;
   background: rgba(0, 0, 0, 0.6);
   position: fixed;
   inset: 0;
@@ -18,6 +17,7 @@ export const container = styled(motion.div)`
   height: 80vh;
   background-color: ${({ theme }) => theme.backgroundLevel2};
   position: relative;
+  z-index: 99999999;
   padding: 16px;
   padding-top: 40px;
 

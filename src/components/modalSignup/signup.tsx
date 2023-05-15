@@ -54,7 +54,7 @@ export const ModalSignUp = () => {
       data.email !== "" && data.password !== "" && data.samePassword !== "" ? setIsDisabled(false) : setIsDisabled(true)
     })
   }, [watch])
-
+//ver os botoes tortos e pra fora do layout
   return (
     <Modal.Root>
       <Modal.Container>
@@ -64,7 +64,7 @@ export const ModalSignUp = () => {
           <AnimatePresence>
             {steps === 0 && (
               <motion.form
-                style={{ width: "100%" }}
+                style={{ width: "100%", overflow: "hidden" }}
                 onSubmit={handleSubmit(onSubmit)}
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
