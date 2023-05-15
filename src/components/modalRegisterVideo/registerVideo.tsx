@@ -24,13 +24,20 @@ export const RegisterVideo = ({ setIsRegister }: { setIsRegister: Dispatch<SetSt
   const [notify, setNotify] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
-
   const formMethod = useForm<ValidationsInterface>({ resolver: ValidationsResolvers })
 
   const { formState: { errors, isSubmitSuccessful }, register, watch, handleSubmit, reset } = formMethod
 
   const getThumb = (url: string) => {
-    return `https://img.youtube.com/vi/${url.split("v=")[1]}/hqdefault.jpg`
+    // pega tudo entre o "v=... e ignora se tiver outro parametro na url depois"
+    const videoIdMatch = url.match(/(?:youtu\.be\/|v=|u\/\w\/|embed\/|v\/|youtube\.com\/user\/\w+\/|ytscreeningroom\?v=|youtube\.com\/v\/)([^#?&]+)/)
+
+    if (videoIdMatch) {
+      const videoId = videoIdMatch[1];
+      return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    }
+
+    return "/imgDefault.png"
   }
 
   const onSubmit: SubmitHandler<ValidationsInterface> = async (data) => {
@@ -46,10 +53,19 @@ export const RegisterVideo = ({ setIsRegister }: { setIsRegister: Dispatch<SetSt
         thumb: getThumb(data.url)
       })
 
-    if (!error) {
+      if(!error && !oldUser?.user_metadata?.myVideos) {
+        const { user, error } = await supabase.auth.update({
+          data: {
+            myVideos: [postedVideo]
+          }
+        })
+        setUser(user)
+      }
+
+    if (!error && oldUser?.user_metadata?.myVideos) {
       const { user, error } = await supabase.auth.update({
         data: {
-          myVideos: [...oldUser?.user_metadata.myVideos, postedVideo]
+          myVideos: [...oldUser.user_metadata.myVideos, postedVideo]
         }
       })
       setUser(user)

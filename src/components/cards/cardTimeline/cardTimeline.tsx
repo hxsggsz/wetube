@@ -22,7 +22,7 @@ export const CardTimeline = (props: CardProps) => {
         <style.Wrapper whileHover={{ scale: 1.02 }}>
           <motion.img
             width={350}
-            height={210}
+            height={195}
             className="thumb"
             src={props.thumb}
             alt={`card do video ${props.title}`}

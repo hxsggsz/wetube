@@ -42,23 +42,116 @@ export const Timeline = () => {
   }, [])
 
   return (
-    <StyledTimelineWrapper ref={ref}>
-      <StyledCategory>
-        <h1>Os melhores jogos:</h1>
-        <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
-          {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (games.map(videos => (
-            <CardTimeline
-              key={videos.id}
-              url={videos.url}
-              thumb={videos.thumb}
-              title={videos.title}
-              isLoading={isLoading}
-              author={videos.author}
-              author_image={videos.author_image}
-            />
-          )))}
-        </StyledTimeline>
-      </StyledCategory>
-    </StyledTimelineWrapper >
+    <>
+      <StyledTimelineWrapper ref={ref}>
+        <StyledCategory>
+          <h1>Saiba tudo sobre <span>Técnologia</span></h1>
+          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+            {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (tech.map(videos => (
+              <CardTimeline
+                key={videos.id}
+                url={videos.url}
+                thumb={videos.thumb}
+                title={videos.title}
+                isLoading={isLoading}
+                author={videos.author}
+                author_image={videos.author_image}
+              />
+            )))}
+          </StyledTimeline>
+        </StyledCategory>
+      </StyledTimelineWrapper>
+
+      <StyledTimelineWrapper ref={ref}>
+        <StyledCategory>
+          <h1>As <span>Comidas</span> mais deliciosas</h1>
+          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+            {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (food.map(videos => (
+              <CardTimeline
+                key={videos.id}
+                url={videos.url}
+                thumb={videos.thumb}
+                title={videos.title}
+                isLoading={isLoading}
+                author={videos.author}
+                author_image={videos.author_image}
+              />
+            )))}
+          </StyledTimeline>
+        </StyledCategory>
+      </StyledTimelineWrapper>
+
+      <StyledTimelineWrapper ref={ref}>
+        <StyledCategory>
+          <h1>Os melhores <span>jogos</span></h1>
+          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+            {isLoading ? <>
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+            </> : (games.map(videos => (
+              <CardTimeline
+                key={videos.id}
+                url={videos.url}
+                thumb={videos.thumb}
+                title={videos.title}
+                isLoading={isLoading}
+                author={videos.author}
+                author_image={videos.author_image}
+              />
+            )))}
+          </StyledTimeline>
+        </StyledCategory>
+      </StyledTimelineWrapper>
+
+      <StyledTimelineWrapper ref={ref}>
+        <StyledCategory>
+          <h1>Os <span>Animes</span> do ano</h1>
+          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+            {isLoading ? <>
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+            </> : (animes.map(videos => (
+              <CardTimeline
+                key={videos.id}
+                url={videos.url}
+                thumb={videos.thumb}
+                title={videos.title}
+                isLoading={isLoading}
+                author={videos.author}
+                author_image={videos.author_image}
+              />
+            )))}
+          </StyledTimeline>
+        </StyledCategory>
+      </StyledTimelineWrapper>
+
+      <StyledTimelineWrapper ref={ref}>
+        <StyledCategory>
+          <h1>As <span>músicas</span> do momento</h1>
+          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+            {isLoading ? <>
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+            </> : (musics.map(videos => (
+              <CardTimeline
+                key={videos.id}
+                url={videos.url}
+                thumb={videos.thumb}
+                title={videos.title}
+                isLoading={isLoading}
+                author={videos.author}
+                author_image={videos.author_image}
+              />
+            )))}
+          </StyledTimeline>
+        </StyledCategory>
+      </StyledTimelineWrapper>
+    </>
   )
 }

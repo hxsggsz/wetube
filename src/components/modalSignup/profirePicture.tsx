@@ -27,7 +27,7 @@ export const ProfilePicture = () => {
         
         const { user, error } = await supabase.auth.update({
           data: {
-            profilePic: CDNURL + data.Key
+            profilePic: CDNURL + data.Key,
           }
         })
         setUser(user)

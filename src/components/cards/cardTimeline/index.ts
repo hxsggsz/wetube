@@ -10,7 +10,7 @@ export const Wrapper = styled(motion.div)`
 
   .thumb {
     border-radius: 6px;
-    object-fit: none;
+    object-fit: cover;
     user-select: none;
     pointer-events: none;
   }

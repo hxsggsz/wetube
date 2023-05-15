@@ -11,7 +11,8 @@ const AvatarRoot = styled(Avatar.Root)`
   user-select: none;
   min-width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 999999px;
+  gap: 4px;
 `;
 
 const AvatarImage = styled(Avatar.Image)`

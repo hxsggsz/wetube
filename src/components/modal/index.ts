@@ -17,7 +17,7 @@ export const container = styled(motion.div)`
   height: 80vh;
   background-color: ${({ theme }) => theme.backgroundLevel2};
   position: relative;
-  z-index: 99999999;
+  /* z-index: 99999999; */
   padding: 16px;
   padding-top: 40px;
 

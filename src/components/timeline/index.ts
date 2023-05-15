@@ -19,9 +19,13 @@ export const StyledTimelineWrapper = styled(motion.div)`
   `;
 
 export const StyledCategory = styled(motion.div)`
- h1 {
-  margin-bottom: 6px;
- }
+  h1 {
+    margin-bottom: 6px;
+  }
+
+  span {
+    color: red;
+  }
  `;
 
 export const StyledTimeline = styled(motion.div)`

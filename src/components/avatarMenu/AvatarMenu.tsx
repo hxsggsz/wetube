@@ -11,16 +11,17 @@ import { supabase } from "../../services/videoService";
 import { DropdownMenuItem, AvatarImageStyled } from "./index";
 import Link from "next/link";
 import { useTheme } from "../../context/ThemeContext";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { RegisterVideo } from "../modalRegisterVideo/registerVideo";
 import { AnimatePresence } from "framer-motion";
-import { Video } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, Video } from "@phosphor-icons/react";
 
 export const AvatarMenu = () => {
   const { user, setUser } = useAuth()
+  const [isOpen, setIsOpen] = useState(false);
   const [isRegister, setIsRegister] = useState(false)
   const { color, handleColor } = useTheme()
-
+console.log(user)
   const signOut = async () => {
     await supabase.auth.signOut()
     setUser(null)
@@ -28,7 +29,7 @@ export const AvatarMenu = () => {
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
 
           <AvatarRootStyled>
@@ -37,6 +38,7 @@ export const AvatarMenu = () => {
               src={user?.user_metadata?.profilePic}
               alt={`imagem de perfil do ${user?.user_metadata?.name}`}
             />
+            {isOpen ? <CaretUp size={20} color="grey" weight="bold" /> : <CaretDown size={20} color="grey" weight="bold" />}
           </AvatarRootStyled>
 
         </DropdownMenuTrigger>

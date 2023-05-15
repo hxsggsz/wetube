@@ -22,6 +22,7 @@ export const Content = styled(Select.Content)`
   overflow: hidden;
   border-radius: 6px;
   width: 100%;
+  z-index: 999;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
 `;
 

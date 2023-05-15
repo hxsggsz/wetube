@@ -17,7 +17,7 @@ export const StyledButton = styled.button`
   float: right;
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 92%;
     margin-top: 8px;
   }
 
