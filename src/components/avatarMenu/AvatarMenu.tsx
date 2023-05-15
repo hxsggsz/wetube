@@ -21,7 +21,7 @@ export const AvatarMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRegister, setIsRegister] = useState(false)
   const { color, handleColor } = useTheme()
-console.log(user)
+
   const signOut = async () => {
     await supabase.auth.signOut()
     setUser(null)

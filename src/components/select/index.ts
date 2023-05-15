@@ -47,3 +47,5 @@ export const Item = styled(Select.Item)`
     background: red;
   }
 `;
+
+export const ItemText = styled(Select.ItemText)``;

@@ -5,6 +5,7 @@ export const StyledTimelineWrapper = styled(motion.div)`
   position: relative;
   display: flex;
   width: 100vw;
+  padding: 30px 0;
   margin: 0 0 10px 40px;
   overflow: hidden;
   

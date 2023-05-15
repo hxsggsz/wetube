@@ -16,7 +16,7 @@ export const SelectCategories = ({ setSelect }: { setSelect: Dispatch<SetStateAc
       <Select.Portal>
         <SelectStyled.Content className="SelectContent">
           <Select.Viewport className="SelectViewport">
-
+ 
             <Select.Group>
               <SelectItem value="">Selecione uma categoria</SelectItem>
               <SelectItem value="Técnologia">Técnologia</SelectItem>
@@ -37,12 +37,10 @@ interface SelectProps extends Select.SelectItemProps {
   children: ReactNode
 }
 
-const SelectItem = forwardRef<HTMLDivElement, SelectProps>(({ children, ...props }: SelectProps, ref) => {
+export const SelectItem = forwardRef<HTMLDivElement, SelectProps>(function Select({ children, ...props }: SelectProps, ref) {
   return (
     <SelectStyled.Item className='SelectItem' {...props} ref={ref}>
-      <Select.ItemText>{children}</Select.ItemText>
+      <SelectStyled.ItemText>{children}</SelectStyled.ItemText>
     </SelectStyled.Item>
   )
 })
-
-export default SelectItem;

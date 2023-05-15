@@ -13,12 +13,13 @@ const AvatarRoot = styled(Avatar.Root)`
   height: 50px;
   border-radius: 999999px;
   gap: 4px;
-`;
+  cursor: pointer;
+  `;
 
 const AvatarImage = styled(Avatar.Image)`
+  border-radius: 999999px;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   object-fit: cover;
   border-radius: inherit;
   border: 2px solid red;
@@ -29,8 +30,9 @@ const AvatarImage = styled(Avatar.Image)`
   }
 `;
 
-const StyledTrigger = styled(DropdownMenuPrimitive.Trigger)`
-`;
+const StyledRoot = styled(DropdownMenuPrimitive.Root)``;
+
+const StyledTrigger = styled(DropdownMenuPrimitive.Trigger)``;
 
 const StyledPortal = styled(DropdownMenuPrimitive.Portal)``;
 
@@ -75,7 +77,7 @@ const StyledItem = styled(DropdownMenuPrimitive.Item)`
 
 export const AvatarRootStyled = AvatarRoot
 export const AvatarImageStyled = AvatarImage
-export const DropdownMenu = DropdownMenuPrimitive.Root
+export const DropdownMenu = StyledRoot
 export const DropdownMenuPortal = StyledPortal
 export const DropdownMenuTrigger = StyledTrigger
 export const DropdownMenuContent = StyledContent

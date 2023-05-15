@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "../../services/videoService";
 import { CardTimeline } from '../cards/cardTimeline/cardTimeline';
 import { CardTimelineSkeleton } from "../cards/cardTimeline/cardTimelineSkeleton";
+import { Skeleton } from "@mui/material";
 
 interface Video {
   id: number
@@ -31,6 +32,7 @@ export const Timeline = () => {
     async function newTimeline() {
       const { data: video } = await supabase.from('video').select('*')
       video && setTimeline(video)
+      setIsLoading(false)
     }
     supabase
       .from('video')
@@ -38,14 +40,13 @@ export const Timeline = () => {
       .subscribe()
     newTimeline() // mostra a timeline
 
-    setIsLoading(false)
   }, [])
 
   return (
     <>
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          <h1>Saiba tudo sobre <span>Técnologia</span></h1>
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>Saiba tudo sobre <span>Técnologia</span></h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (tech.map(videos => (
               <CardTimeline
@@ -53,7 +54,6 @@ export const Timeline = () => {
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
-                isLoading={isLoading}
                 author={videos.author}
                 author_image={videos.author_image}
               />
@@ -64,7 +64,7 @@ export const Timeline = () => {
 
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          <h1>As <span>Comidas</span> mais deliciosas</h1>
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>As <span>Comidas</span> mais deliciosas</h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (food.map(videos => (
               <CardTimeline
@@ -72,7 +72,6 @@ export const Timeline = () => {
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
-                isLoading={isLoading}
                 author={videos.author}
                 author_image={videos.author_image}
               />
@@ -83,7 +82,7 @@ export const Timeline = () => {
 
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          <h1>Os melhores <span>jogos</span></h1>
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>Os melhores <span>jogos</span></h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <>
               <CardTimelineSkeleton />
@@ -96,7 +95,6 @@ export const Timeline = () => {
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
-                isLoading={isLoading}
                 author={videos.author}
                 author_image={videos.author_image}
               />
@@ -107,7 +105,7 @@ export const Timeline = () => {
 
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          <h1>Os <span>Animes</span> do ano</h1>
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>Os <span>Animes</span> do ano</h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <>
               <CardTimelineSkeleton />
@@ -120,7 +118,6 @@ export const Timeline = () => {
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
-                isLoading={isLoading}
                 author={videos.author}
                 author_image={videos.author_image}
               />
@@ -131,7 +128,7 @@ export const Timeline = () => {
 
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          <h1>As <span>músicas</span> do momento</h1>
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>As <span>músicas</span> do momento</h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <>
               <CardTimelineSkeleton />
@@ -144,7 +141,6 @@ export const Timeline = () => {
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
-                isLoading={isLoading}
                 author={videos.author}
                 author_image={videos.author_image}
               />
