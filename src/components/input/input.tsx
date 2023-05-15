@@ -7,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   HandlePassword?: string
   setHandlePassword?: Dispatch<SetStateAction<string>>
 }
-
+ 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function InputContent({ ...props }: InputProps, ref) {
   return (
     <StyledWrapper>

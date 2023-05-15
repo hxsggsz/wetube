@@ -37,10 +37,12 @@ interface SelectProps extends Select.SelectItemProps {
   children: ReactNode
 }
 
-const SelectItem = forwardRef<HTMLDivElement, SelectProps>(({ children, ...props }: SelectProps, ref) => {
+const SelectItem = forwardRef<HTMLDivElement, SelectProps>(function Select({ children, ...props }: SelectProps, ref) {
   return (
     <SelectStyled.Item className='SelectItem' {...props} ref={ref}>
-      <Select.ItemText>{children}</Select.ItemText>
+      {children}
     </SelectStyled.Item>
   )
 })
+
+export default SelectItem;
