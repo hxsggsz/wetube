@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     overflow-x: hidden;
     font-family: sans-serif;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

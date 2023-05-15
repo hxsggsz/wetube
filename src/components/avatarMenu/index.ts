@@ -9,9 +9,9 @@ const AvatarRoot = styled(Avatar.Root)`
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  width: 50px;
+  min-width: 50px;
   height: 50px;
-  border-radius: 100%;
+  border-radius: 50%;
 `;
 
 const AvatarImage = styled(Avatar.Image)`
