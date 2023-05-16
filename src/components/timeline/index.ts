@@ -5,12 +5,16 @@ export const StyledTimelineWrapper = styled(motion.div)`
   position: relative;
   display: flex;
   width: 100vw;
-  padding: 30px 0;
+  padding: 30px 10px;
   margin: 0 0 10px 40px;
   overflow: hidden;
   
+  &:last-child {
+    margin-right: 50px;
+  }
+
   @media (max-width: 430px) {
-    margin: 0 0 10px 80px;
+    margin: 0 20px 10px 55px;
   }
   
   @media (max-width: 395px) {

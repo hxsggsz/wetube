@@ -10,9 +10,10 @@ import { Skeleton } from "@mui/material";
 interface Video {
   id: number
   thumb: string
-  title: string
+  title: string 
   url: string
   author: string
+  created_at: string
   author_image: string
   category: string
 }
@@ -29,11 +30,6 @@ export const Timeline = () => {
   const musics = timeline.filter(videos => videos.category === "Música")
 
   useEffect(() => {
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-    }
-
     async function newTimeline() {
         //configurar o CORS quando cria o client `supabase` não funciona, então para funcionar tive que fazer isso
         fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/video?&apikey=${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`, {
@@ -68,6 +64,7 @@ export const Timeline = () => {
                 thumb={videos.thumb}
                 title={videos.title}
                 author={videos.author}
+                createdAt={videos.created_at}
                 author_image={videos.author_image}
               />
             )))}
@@ -87,6 +84,7 @@ export const Timeline = () => {
                 thumb={videos.thumb}
                 title={videos.title}
                 author={videos.author}
+                createdAt={videos.created_at}
                 author_image={videos.author_image}
               />
             )))}
@@ -111,6 +109,7 @@ export const Timeline = () => {
                 thumb={videos.thumb}
                 title={videos.title}
                 author={videos.author}
+                createdAt={videos.created_at}
                 author_image={videos.author_image}
               />
             )))}
@@ -135,6 +134,7 @@ export const Timeline = () => {
                 thumb={videos.thumb}
                 title={videos.title}
                 author={videos.author}
+                createdAt={videos.created_at}
                 author_image={videos.author_image}
               />
             )))}
@@ -159,6 +159,7 @@ export const Timeline = () => {
                 thumb={videos.thumb}
                 title={videos.title}
                 author={videos.author}
+                createdAt={videos.created_at}
                 author_image={videos.author_image}
               />
             )))}

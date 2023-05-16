@@ -38,4 +38,8 @@ export const GlobalStyle = createGlobalStyle`
   button {
     all: unset;
   }
+
+  h1 {
+    font-size: min(32px, 7vw);
+  }
 `;

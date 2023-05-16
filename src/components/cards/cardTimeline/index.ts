@@ -6,10 +6,17 @@ export const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   text-align: left;
-  max-width: 350px;
+  max-width: 365px;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    border-right: 4px solid red;
+    border-bottom: 4px solid red;
+    border-radius: 12px;
+  }
 
   .thumb {
-    border-radius: 6px;
+    border-radius: 12px;
     object-fit: cover;
     user-select: none;
     pointer-events: none;
@@ -34,6 +41,17 @@ export const TextInfo = styled(motion.section)`
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  .link {
+    background: red;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    width: 90%;
+    margin-bottom: 4px;
+    margin-left: 8px;
+  }
 `;
 
 export const TextAuthor = styled(motion.div)`
@@ -41,11 +59,4 @@ export const TextAuthor = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 6px;
-
-  .link {
-    background: red;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: 600;
-  }
 `;
