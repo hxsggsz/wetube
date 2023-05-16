@@ -37,8 +37,8 @@ export const Timeline = () => {
     async function newTimeline() {
         //configurar o CORS quando cria o client `supabase` não funciona, então para funcionar tive que fazer isso
         fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/video?&apikey=${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`, {
-          headers: corsHeaders
-        }).then(res => res.json())
+          mode: "no-cors"
+        })
 
       //   console.log(res)
       const { data: video } = await supabase.from('video').select('*')
