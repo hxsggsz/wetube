@@ -41,4 +41,11 @@ export const TextAuthor = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 6px;
+
+  .link {
+    background: red;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
 `;

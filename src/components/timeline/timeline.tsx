@@ -63,6 +63,7 @@ export const Timeline = () => {
             {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (tech.map(videos => (
               <CardTimeline
                 key={videos.id}
+                id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
@@ -81,6 +82,7 @@ export const Timeline = () => {
             {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (food.map(videos => (
               <CardTimeline
                 key={videos.id}
+                id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
@@ -104,6 +106,7 @@ export const Timeline = () => {
             </> : (games.map(videos => (
               <CardTimeline
                 key={videos.id}
+                id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
@@ -127,6 +130,7 @@ export const Timeline = () => {
             </> : (animes.map(videos => (
               <CardTimeline
                 key={videos.id}
+                id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}
@@ -150,6 +154,7 @@ export const Timeline = () => {
             </> : (musics.map(videos => (
               <CardTimeline
                 key={videos.id}
+                id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
                 title={videos.title}

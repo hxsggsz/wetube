@@ -1,11 +1,13 @@
 import * as style from ".";
 import Image from "next/image"
 import { YoutubeLogo } from "@phosphor-icons/react"
-import { useState } from "react";
-import { CardTimelineSkeleton } from './cardTimelineSkeleton';
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { Button } from "../../button/button";
 
 interface CardProps {
+  id: number
   thumb: string
   title: string
   url: string
@@ -14,8 +16,18 @@ interface CardProps {
 }
 
 export const CardTimeline = (props: CardProps) => {
+  const [isHover, setIsHover] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth
+      
+      width <= 768 && setIsHover(true)
+    }
+  }, [])
+
   return (
-    <style.Wrapper whileHover={{ scale: 1.02 }}>
+    <style.Wrapper onHoverStart={() => setIsHover(prev => !prev)} onHoverEnd={() => setIsHover(prev => !prev)} whileHover={{ scale: 1.02 }}>
       <motion.img
         width={350}
         height={195}
@@ -34,8 +46,8 @@ export const CardTimeline = (props: CardProps) => {
               <p>{props.author}</p>
               <YoutubeLogo size="15" weight="bold" />
               <p>2 dias atras</p>
+              {isHover && <Link className="link" href={`/v/${props.id}`}>Assista</Link>}
             </style.TextAuthor>
-
           </style.TextInfo>
         </style.WrapperInfo>
 
