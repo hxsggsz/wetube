@@ -29,8 +29,20 @@ export const Timeline = () => {
   const musics = timeline.filter(videos => videos.category === "Música")
 
   useEffect(() => {
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    }
+
     async function newTimeline() {
+        //configurar o CORS quando cria o client `supabase` não funciona, então para funcionar tive que fazer isso
+        fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/video?&apikey=${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`, {
+          headers: corsHeaders
+        }).then(res => res.json())
+
+      //   console.log(res)
       const { data: video } = await supabase.from('video').select('*')
+      
       video && setTimeline(video)
       setIsLoading(false)
     }
