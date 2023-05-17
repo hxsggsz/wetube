@@ -6,6 +6,8 @@ import { CardVideo } from '../components/cards/cardVideo/cardVideo';
 import { supabase } from '../services/videoService';
 import * as style from "../../styles/profile"
 import { EmptyVideos } from '../components/emptyVideos/emptyVideos';
+import { CardVideoSkeleton } from '../components/cards/cardVideo/cardVideoSkeleton';
+import { Skeleton } from '@mui/material';
 
 interface MyVideoProps {
   id: number
@@ -25,12 +27,8 @@ export default function Profile() {
 
   useEffect(() => {
     // !user ? router.replace('/') : setIsLoading(false)
-    console.log(user)
-  }, [user])
-
-  useEffect(() => {
     getMyVideos()
-  }, [])
+  }, [user])
 
   async function getMyVideos() {
     if (user) {
@@ -41,16 +39,20 @@ export default function Profile() {
         setMyVideos(data)
       }
     }
-
   }
 
   return (
     <>
-      <ProfileAvatar />
+      <ProfileAvatar isLoading={isLoading} />
       <style.Wrapper>
-        <h1>Meus videos</h1>
+        {isLoading ? <Skeleton width="240px" height="35px" /> : <h1>Meus videos</h1>}
         <style.Video>
-          {myVideos.length === 0 ? <EmptyVideos /> : <CardVideo isBigger vid={myVideos} />}
+          {isLoading ? <>
+            <CardVideoSkeleton />
+            <CardVideoSkeleton />
+            <CardVideoSkeleton />
+            <CardVideoSkeleton />
+          </> : myVideos.length === 0 ? <EmptyVideos /> : <CardVideo isBigger vid={myVideos} />}
         </style.Video>
       </style.Wrapper>
     </>

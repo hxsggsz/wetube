@@ -8,14 +8,15 @@ import { useDispatch } from "react-redux";
 import { handleShowSignUp } from "../../redux/authModal";
 
 export const ProfilePicture = () => {
+  const dispatch = useDispatch()
   const { user, setUser } = useAuth()
   const [image, setImage] = useState("")
   const [UsernameError, setUsernameError] = useState("")
-  const dispatch = useDispatch()
 
   const addImage = async (ev: any) => {
     const useId = uuid()
     const files = ev.target.files[0]
+
     const { data, error } = await supabase
       .storage
       .from("images")
@@ -30,7 +31,7 @@ export const ProfilePicture = () => {
             profilePic: CDNURL + data.Key,
           }
         })
-        setUser(user)
+        !error && setUser(user)
       }
 
     if (error) {

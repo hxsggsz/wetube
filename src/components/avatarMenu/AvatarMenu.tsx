@@ -67,7 +67,7 @@ export const AvatarMenu = () => {
 
           </DropdownMenuContent>
         </DropdownMenuPortal>
-      </DropdownMenu >
+      </DropdownMenu>
 
       <AnimatePresence>
         {isRegister && <RegisterVideo setIsRegister={setIsRegister} />}
