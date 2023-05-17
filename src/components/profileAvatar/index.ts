@@ -5,7 +5,7 @@ export const Background = styled.div`
   align-items: center;
   justify-content: start;
   width: 100vw;
-  height: 200px;
+  height: 230px;
   background: #b21700;
   position: relative;
 `;
@@ -22,10 +22,20 @@ export const Img = styled.img`
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
-  border: 5px solid ${({ theme }) => theme.backgroundLevel1};
+  border: 5px solid ${({ theme }) => theme.backgroundBase};
   object-fit: cover;
 `;
 
 export const Username = styled.div`
   margin-bottom: 10%;
+
+  h1 {
+    display: flex;
+    gap: 4px; 
+  }
+
+  span {
+    color: #AAAAAA;
+    font-weight: 600;
+  }
 `;

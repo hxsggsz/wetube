@@ -46,30 +46,13 @@ export const RegisterVideo = ({ setIsRegister }: { setIsRegister: Dispatch<SetSt
     const { error, data: postedVideo } = await service.setNewVIdeo()
       .insert({
         category: select,
+        userId: oldUser?.id,
         author: oldUser?.user_metadata.username,
         author_image: oldUser?.user_metadata.profilePic,
         title: data.titulo,
         url: data.url,
         thumb: getThumb(data.url)
       })
-
-      if(!error && !oldUser?.user_metadata?.myVideos) {
-        const { user, error } = await supabase.auth.update({
-          data: {
-            myVideos: [postedVideo]
-          }
-        })
-        setUser(user)
-      }
-
-    if (!error && oldUser?.user_metadata?.myVideos) {
-      const { user, error } = await supabase.auth.update({
-        data: {
-          myVideos: [...oldUser.user_metadata.myVideos, postedVideo]
-        }
-      })
-      setUser(user)
-    }
 
     error && setError(error.message)
     setLoading(false)

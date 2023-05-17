@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 interface CardVideoProps {
   vid: videos[]
+  isBigger?: boolean
 }
 
 interface videos {
@@ -16,12 +17,12 @@ interface videos {
   author_image: string
 }
 
-export const CardVideo = ({ vid }: CardVideoProps) => {
+export const CardVideo = ({ vid, isBigger }: CardVideoProps) => {
   return (
     <>
       {vid.map(video => (
-        <Link href={{ pathname: `/v/${video.url.match("(?<=v=).+")}`, query: { category: video.category, i: video.id } }}>
-          <style.CardWrapper key={video.id}>
+        <Link key={video.id} href={{ pathname: `/v/${video.url.match("(?<=v=).+")}`, query: { category: video.category, i: video.id } }}>
+          <style.CardWrapper>
             <Image
               width={220}
               height={120}
@@ -30,7 +31,7 @@ export const CardVideo = ({ vid }: CardVideoProps) => {
               alt={`thumbnail do video ${video.title}`}
             />
             <div>
-              <h4>{video.title}</h4>
+              {isBigger ? <h2>{video.title}</h2> : <h4>{video.title}</h4>} 
               <style.CardInfo>
                 <Image
                   width={40}

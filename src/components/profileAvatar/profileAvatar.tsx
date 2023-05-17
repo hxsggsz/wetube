@@ -16,7 +16,7 @@ export const ProfileAvatar = () => {
             alt={`avatar do ${user?.user_metadata?.name}`}
           />
           <style.Username>
-            <h1>{user?.user_metadata?.name}</h1><span><SealCheck size={36} weight="bold" /></span>
+            <h1>{user?.user_metadata?.name} <SealCheck size={36} weight="bold" /></h1>
             <span>{`@${user?.user_metadata?.username}`}</span>
           </style.Username>
         </style.UserWrapper>
