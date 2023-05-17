@@ -8,6 +8,7 @@ export const Wrapper = styled(motion.div)`
   text-align: left;
   max-width: 365px;
   transition: all 250ms ease-in-out;
+  margin-top: 10px;
 
   &:hover {
     border-right: 4px solid red;
@@ -28,8 +29,10 @@ export const Author = styled(motion.div)`
   
   .img-author {
     border-radius: 50%;
+    user-select: none;
+    pointer-events: none;
   }
-  `;
+`;
 
 export const WrapperInfo = styled(motion.div)`
   display: flex;

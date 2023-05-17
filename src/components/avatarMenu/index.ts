@@ -9,7 +9,7 @@ const AvatarRoot = styled(Avatar.Root)`
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  min-width: 50px;
+  max-width: 50px;
   height: 50px;
   border-radius: 999999px;
   gap: 4px;
@@ -70,7 +70,7 @@ const StyledItem = styled(DropdownMenuPrimitive.Item)`
     padding: 20px 5px;
   }
 
-  &:focus {
+  &:focus { 
     background: red;
   }
 `;

@@ -6,11 +6,12 @@ import { supabase } from "../../services/videoService";
 import { CardTimeline } from '../cards/cardTimeline/cardTimeline';
 import { CardTimelineSkeleton } from "../cards/cardTimeline/cardTimelineSkeleton";
 import { Skeleton } from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
 
 interface Video {
   id: number
   thumb: string
-  title: string 
+  title: string
   url: string
   author: string
   created_at: string
@@ -19,6 +20,7 @@ interface Video {
 }
 
 export const Timeline = () => {
+  const { user } = useAuth()
   const ref = useRef<HTMLDivElement | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [timeline, setTimeline] = useState<Video[]>([]);
@@ -30,15 +32,19 @@ export const Timeline = () => {
   const musics = timeline.filter(videos => videos.category === "Música")
 
   useEffect(() => {
-    async function newTimeline() {
-        //configurar o CORS quando cria o client `supabase` não funciona, então para funcionar tive que fazer isso
-        fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/video?&apikey=${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`, {
-          mode: "cors"
-        })
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    }
 
-      //   console.log(res)
+    async function newTimeline() {
+      //configurar o CORS quando cria o client `supabase` não funciona, então para funcionar tive que fazer isso
+      fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/video?&apikey=${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`, {
+        headers: corsHeaders
+      })
+
       const { data: video } = await supabase.from('video').select('*')
-      
+
       video && setTimeline(video)
       setIsLoading(false)
     }
@@ -56,12 +62,18 @@ export const Timeline = () => {
         <StyledCategory>
           {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>Saiba tudo sobre <span>Técnologia</span></h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
-            {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (tech.map(videos => (
+            {isLoading ? <>
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+            </> : (tech.map(videos => (
               <CardTimeline
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
+                category={videos.category}
                 title={videos.title}
                 author={videos.author}
                 createdAt={videos.created_at}
@@ -76,12 +88,18 @@ export const Timeline = () => {
         <StyledCategory>
           {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>As <span>Comidas</span> mais deliciosas</h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
-            {isLoading ? <><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /><CardTimelineSkeleton /></> : (food.map(videos => (
+            {isLoading ? <>
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+              <CardTimelineSkeleton />
+            </> : (food.map(videos => (
               <CardTimeline
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
+                category={videos.category}
                 title={videos.title}
                 author={videos.author}
                 createdAt={videos.created_at}
@@ -107,6 +125,7 @@ export const Timeline = () => {
                 id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
+                category={videos.category}
                 title={videos.title}
                 author={videos.author}
                 createdAt={videos.created_at}
@@ -132,6 +151,7 @@ export const Timeline = () => {
                 id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
+                category={videos.category}
                 title={videos.title}
                 author={videos.author}
                 createdAt={videos.created_at}
@@ -157,6 +177,7 @@ export const Timeline = () => {
                 id={videos.id}
                 url={videos.url}
                 thumb={videos.thumb}
+                category={videos.category}
                 title={videos.title}
                 author={videos.author}
                 createdAt={videos.created_at}

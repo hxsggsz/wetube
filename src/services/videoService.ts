@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-export const supabase = createClient(PROJECT_URL!, PUBLIC_KEY!)
+export const supabase = createClient(PROJECT_URL!, PUBLIC_KEY!, { headers: corsHeaders})
 
 export default function videoService() {
   return {

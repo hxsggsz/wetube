@@ -40,6 +40,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: min(32px, 7vw);
+    font-size: min(32px, 6.5vw);
   }
 `;

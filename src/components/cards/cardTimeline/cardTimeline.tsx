@@ -1,29 +1,32 @@
 import * as style from ".";
 import Image from "next/image"
-import { YoutubeLogo } from "@phosphor-icons/react"
+import { DotsThreeVertical, YoutubeLogo } from "@phosphor-icons/react"
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "../../button/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "../../avatarMenu";
+import { useAuth } from "../../../context/AuthContext";
 
 interface CardProps {
   id: number
   thumb: string
   title: string
   url: string
+  category: string
   author: string
   createdAt: string
   author_image: string
 }
 
 export const CardTimeline = (props: CardProps) => {
-  const [isHover, setIsHover] = useState(false)
+  const { user } = useAuth()
   const [date, setDate] = useState("")
-  const created = new Date(props.createdAt)
+  const [isHover, setIsHover] = useState(false)
+
   const currentDate = new Date()
+  const created = new Date(props.createdAt)
 
   const result = currentDate.getTime() - created.getTime()
-
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -32,16 +35,11 @@ export const CardTimeline = (props: CardProps) => {
       width <= 768 && setIsHover(true)
     }
 
-    const days = Math.floor(result / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((result % (1000 * 60 * 60)) / (1000 * 60));
+    const days = Math.floor(result / (1000 * 60 * 60 * 24))
+    const minutes = Math.floor((result % (1000 * 60 * 60)) / (1000 * 60))
+    const hours = Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
 
-    // const minutes = result / 1000 / 60
-    // const hours = result / 1000 / 60 / 60
-    // const days = result / 1000 / 60 / 60 / 24
-    //            ms       s     m    h    d
-
-    if (days > 0 && hours > 0) {
+    if (days > 0) {
       setDate(Math.floor(days) + ' dias atrás')
       return
     }
@@ -56,9 +54,9 @@ export const CardTimeline = (props: CardProps) => {
       return
     }
   }, [])
-
+  
   return (
-    <style.Wrapper onHoverStart={() => setIsHover(prev => !prev)} onHoverEnd={() => setIsHover(prev => !prev)} whileHover={{ scale: 1.02 }}>
+    <style.Wrapper onHoverStart={() => setIsHover(true)} onHoverEnd={() => setIsHover(false)} whileHover={{ scale: 1.02 }}>
       <motion.img
         width={350}
         height={195}
@@ -69,7 +67,7 @@ export const CardTimeline = (props: CardProps) => {
       <style.Author>
 
         <style.WrapperInfo>
-          <Image className="img-author" src={props.author_image} width={40} height={40} alt={`icone do ${props.author}`} />
+          <Image className="img-author" src={props.author_image} width={50} height={50} alt={`icone do ${props.author}`} />
           <style.TextInfo>
             <h3>{props.title}</h3>
 
@@ -78,7 +76,7 @@ export const CardTimeline = (props: CardProps) => {
               <YoutubeLogo size="15" weight="bold" />
               <p>{date}</p>
             </style.TextAuthor>
-            {isHover && <Link className="link" href={`/v/${props.id}`}>Assista</Link>}
+            {isHover && <Link className="link" href={{ pathname: `/v/${props.url.match("(?<=v=).+")}`, query: { category: props.category, i: props.id } }}>Assista</Link>}
           </style.TextInfo>
         </style.WrapperInfo>
 
