@@ -37,3 +37,12 @@ export const StyledButton = styled.button`
     background: ${({ theme }) => theme.backgroundLevel1};
   }
 `;
+
+export const StyledSearchButton = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: ${({ theme }) => theme.backgroundLevel2};
+  box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
+  border-left: 1px solid ${({ theme }) => theme.borderBase};
+  padding: 10px 20px;
+`;

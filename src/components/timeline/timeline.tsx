@@ -45,7 +45,7 @@ export const Timeline = () => {
       })
 
       const { data: video } = await supabase.from('video').select('*')
-console.log(video)
+
       video && setTimeline(video)
       setIsLoading(false)
     }
