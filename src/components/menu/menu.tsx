@@ -68,7 +68,7 @@ export const Menu: React.FC = () => {
               {searchContent.length !== 0 ? (
                 searchContent.map(video => (
                   
-                  <style.AutoCompleteItem>
+                  <style.AutoCompleteItem key={video.id}>
                     <Link href={{ pathname: `/v/${video.url.match("(?<=v=).+")}`, query: { category: video.category, i: video.id } }}>
                       {video.title}
                     </Link>
