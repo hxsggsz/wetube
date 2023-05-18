@@ -1,7 +1,6 @@
 import Link from "next/link";
 import * as style from '.'
 import { useEffect, useState } from 'react';
-import { Search } from '../search/search';
 import { Button } from '../button/button';
 import { ModalLogin } from '../modalLogIn/login';
 import { AnimatePresence } from 'framer-motion';
@@ -33,7 +32,7 @@ export const Menu: React.FC = () => {
           <LogoDesktop />
           <LogoMobile />
         </Link>
-        <Search />
+
         {user || isLoading ? <AvatarMenu /> : (
           <>
               <MenuBurger />

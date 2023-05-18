@@ -1,6 +1,6 @@
 import * as style from ".";
 import Image from "next/image"
-import { DotsThreeVertical, YoutubeLogo } from "@phosphor-icons/react"
+import { DotsThreeVertical, Trash, YoutubeLogo } from "@phosphor-icons/react"
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -14,6 +14,7 @@ interface CardProps {
   url: string
   category: string
   author: string
+  userId: string
   createdAt: string
   author_image: string
 }
@@ -21,7 +22,6 @@ interface CardProps {
 export const CardTimeline = (props: CardProps) => {
   const { user } = useAuth()
   const [date, setDate] = useState("")
-  const [isHover, setIsHover] = useState(false)
 
   const currentDate = new Date()
   const created = new Date(props.createdAt)
@@ -29,12 +29,6 @@ export const CardTimeline = (props: CardProps) => {
   const result = currentDate.getTime() - created.getTime()
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const width = window.innerWidth
-
-      width <= 768 && setIsHover(true)
-    }
-
     const days = Math.floor(result / (1000 * 60 * 60 * 24))
     const minutes = Math.floor((result % (1000 * 60 * 60)) / (1000 * 60))
     const hours = Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -54,9 +48,9 @@ export const CardTimeline = (props: CardProps) => {
       return
     }
   }, [])
-  
+
   return (
-    <style.Wrapper onHoverStart={() => setIsHover(true)} onHoverEnd={() => setIsHover(false)} whileHover={{ scale: 1.02 }}>
+    <style.Wrapper whileHover={{ scale: 1.02 }}>
       <motion.img
         width={350}
         height={195}
@@ -72,11 +66,14 @@ export const CardTimeline = (props: CardProps) => {
             <h3>{props.title}</h3>
 
             <style.TextAuthor>
-              <p>{props.author}</p>
-              <YoutubeLogo size="15" weight="bold" />
-              <p>{date}</p>
+              <style.WrapperInfo>
+                <p>{props.author}</p>
+                <YoutubeLogo size="15" weight="bold" />
+                <p>{date}</p>
+              </style.WrapperInfo>
+
             </style.TextAuthor>
-            {isHover && <Link className="link" href={{ pathname: `/v/${props.url.match("(?<=v=).+")}`, query: { category: props.category, i: props.id } }}>Assista</Link>}
+            <Link className="link" href={{ pathname: `/v/${props.url.match("(?<=v=).+")}`, query: { category: props.category, i: props.id } }}>Assista</Link>
           </style.TextInfo>
         </style.WrapperInfo>
 

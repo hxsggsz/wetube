@@ -13,6 +13,7 @@ interface Video {
   thumb: string
   title: string
   url: string
+  user_id: string
   author: string
   created_at: string
   author_image: string
@@ -44,7 +45,7 @@ export const Timeline = () => {
       })
 
       const { data: video } = await supabase.from('video').select('*')
-
+console.log(video)
       video && setTimeline(video)
       setIsLoading(false)
     }
@@ -60,7 +61,7 @@ export const Timeline = () => {
     <>
       <StyledTimelineWrapper ref={ref}>
         <StyledCategory>
-          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1>Saiba tudo sobre <span>Técnologia</span></h1>}
+          {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1 className="first">Saiba tudo sobre <span>Técnologia</span></h1>}
           <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
             {isLoading ? <>
               <CardTimelineSkeleton />
@@ -72,6 +73,7 @@ export const Timeline = () => {
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
+                userId={videos.user_id}
                 thumb={videos.thumb}
                 category={videos.category}
                 title={videos.title}
@@ -98,6 +100,7 @@ export const Timeline = () => {
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
+                userId={videos.user_id}
                 thumb={videos.thumb}
                 category={videos.category}
                 title={videos.title}
@@ -124,6 +127,7 @@ export const Timeline = () => {
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
+                userId={videos.user_id}
                 thumb={videos.thumb}
                 category={videos.category}
                 title={videos.title}
@@ -150,6 +154,7 @@ export const Timeline = () => {
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
+                userId={videos.user_id}
                 thumb={videos.thumb}
                 category={videos.category}
                 title={videos.title}
@@ -176,6 +181,7 @@ export const Timeline = () => {
                 key={videos.id}
                 id={videos.id}
                 url={videos.url}
+                userId={videos.user_id}
                 thumb={videos.thumb}
                 category={videos.category}
                 title={videos.title}

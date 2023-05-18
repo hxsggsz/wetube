@@ -61,5 +61,6 @@ export const TextAuthor = styled(motion.div)`
   color: #AAAAAA;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
 `;
