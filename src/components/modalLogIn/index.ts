@@ -7,7 +7,14 @@ export const Wrapper = styled(motion.div)`
 
 export const form = styled(motion.form)`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow: hidden;
+
+  button {
+    padding: 10px;
+  }
 `;
 
 export const resetPassword = styled.div`

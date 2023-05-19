@@ -49,7 +49,7 @@ export const UserName = ({ setSteps }: { setSteps: Dispatch<SetStateAction<numbe
 
   return (
     <motion.form
-      style={{ width: "100%" }}
+      style={{ width: "100%", display: "flex", flexDirection: "column", gap: "4px" }}
       onSubmit={handleSubmit(onSubmit)}
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
@@ -59,7 +59,7 @@ export const UserName = ({ setSteps }: { setSteps: Dispatch<SetStateAction<numbe
       <Input {...register("username")} placeholder="Username" />
       <Error>{UsernameError}</Error>
       <Button type="submit" disabled={isDisabled} isLoading={IsLoading}
-      >Criar Conta</Button>
+      >Enviar</Button>
     </motion.form>
   )
 }

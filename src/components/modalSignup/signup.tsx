@@ -11,6 +11,7 @@ import { ProfilePicture } from "./profirePicture";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { handleShowSignUp } from "../../redux/authModal";
+import { ValidationsSignUp } from "../../validations/validations-signup";
 
 interface SignUpInputs {
   email: string
@@ -27,12 +28,13 @@ export const ModalSignUp = () => {
   const [handlePassword, setHandlePassword] = useState("password")
   const dispatch = useDispatch()
 
-  const { register, handleSubmit, watch } = useForm<SignUpInputs>()
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpInputs>({ resolver: ValidationsSignUp })
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
     setIsLoading(true)
     if (data.password !== data.samePassword) {
       setSignError("As senhas precisam ser idênticas!")
+      return
     }
 
     const { user, error } = await supabase.auth.signUp({
@@ -42,6 +44,7 @@ export const ModalSignUp = () => {
 
     if (error) {
       setSignError(error.message)
+      return
     }
 
     setIsLoading(false)
@@ -64,7 +67,7 @@ export const ModalSignUp = () => {
           <AnimatePresence>
             {steps === 0 && (
               <motion.form
-                style={{ width: "100%" }}
+                style={{ width: "100%", display: "flex", flexDirection: "column", gap: "4px" }}
                 onSubmit={handleSubmit(onSubmit)}
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -75,6 +78,7 @@ export const ModalSignUp = () => {
                   placeholder="Email"
                   {...register("email")}
                 />
+                {errors?.email?.message && <Error>{errors?.email?.message}</Error>}
 
                 <Input
                   isPassword
@@ -83,7 +87,8 @@ export const ModalSignUp = () => {
                   {...register("password")}
                   HandlePassword={handlePassword}
                   setHandlePassword={setHandlePassword}
-                />
+                  />
+                  {errors?.password?.message && <Error>{errors?.password?.message}</Error>}
                 <Input
                   isPassword
                   type={handlePassword}

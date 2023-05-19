@@ -43,7 +43,7 @@ export const Menu: React.FC = () => {
 
   async function getSearchContent() {
     const { data } = await supabase.from('video').select('*')
-    console.log(data, search)
+    
     if (data) {
       const filteredVideo = data.filter(videos => videos.title.includes(search))
       setSearchContent(filteredVideo)
