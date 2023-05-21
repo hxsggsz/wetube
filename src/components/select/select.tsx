@@ -19,10 +19,10 @@ export const SelectCategories = ({ setSelect }: { setSelect: Dispatch<SetStateAc
  
             <Select.Group>
               <SelectItem value="">Selecione uma categoria</SelectItem>
-              <SelectItem value="Técnologia">Técnologia</SelectItem>
+              <SelectItem data-cy="item-test-tech" value="Técnologia">Técnologia</SelectItem>
               <SelectItem value="Culinária">Comidas</SelectItem>
               <SelectItem value="Jogos">Jogos</SelectItem>
-              <SelectItem value="Animes">Animes</SelectItem>
+              <SelectItem data-cy="item-test" value="Animes">Animes</SelectItem>
               <SelectItem value="Música">Música</SelectItem>
             </Select.Group>
 

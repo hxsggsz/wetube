@@ -60,7 +60,7 @@ export const Menu: React.FC = () => {
 
         <div style={{ position: "relative" }}>
           <form style={{ display: "flex", width: "100%" }}>
-            <Search value={search} onChange={(ev) => setSearch(ev.currentTarget.value)} />
+            <Search placeholder="Pesquise um video" value={search} onChange={(ev) => setSearch(ev.currentTarget.value)} />
             <SearchButton />
           </form>
           {search !== "" && (

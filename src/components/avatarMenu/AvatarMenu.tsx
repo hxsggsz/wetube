@@ -30,7 +30,7 @@ export const AvatarMenu = () => {
   return (
     <>
       <DropdownMenu onOpenChange={setIsOpen}>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger data-cy="open-menu" asChild>
 
           <AvatarRootStyled>
             <AvatarImageStyled
@@ -56,7 +56,7 @@ export const AvatarMenu = () => {
               <UserCircle size={25} weight="bold" />
             </DropdownMenuItem>
 
-            <DropdownMenuItem onSelect={() => setIsRegister(prev => !prev)}>
+            <DropdownMenuItem data-cy="add-video" onSelect={() => setIsRegister(prev => !prev)}>
               Adicionar video
               <Video size={25} weight="bold" />
             </DropdownMenuItem>

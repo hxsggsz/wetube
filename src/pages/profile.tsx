@@ -26,7 +26,7 @@ export default function Profile() {
   const [myVideos, setMyVideos] = useState<MyVideoProps[]>([])
 
   useEffect(() => {
-    // !user ? router.replace('/') : setIsLoading(false)
+    !user ? router.replace('/') : setIsLoading(false)
     getMyVideos()
   }, [user])
 

@@ -68,12 +68,12 @@ export const ModalLogin = () => {
                 <style.form onSubmit={handleSubmit(onSubmit)}>
                   <Input
                     type="email"
-                    placeholder="email"
+                    placeholder="Email"
                     {...register('email')}
                   />
                   <Input
                     isPassword
-                    placeholder="senha"
+                    placeholder="Senha"
                     type={handlePassword}
                     {...register('password')}
                     HandlePassword={handlePassword}

@@ -60,9 +60,14 @@ export const Timeline = () => {
   return (
     <>
       <StyledTimelineWrapper ref={ref}>
-        <StyledCategory>
+        <StyledCategory whileHover={{ cursor: "grab" }}
+            whileDrag={{ cursor: "grabbing " }}>
           {isLoading ? <Skeleton variant="text" width="30%" height="20%" /> : <h1 className="first">Saiba tudo sobre <span>Técnologia</span></h1>}
-          <StyledTimeline drag="x" dragElastic={0.2} dragConstraints={ref}>
+          <StyledTimeline
+            drag="x"
+            dragElastic={0.2}
+            dragConstraints={ref}
+          >
             {isLoading ? <>
               <CardTimelineSkeleton />
               <CardTimelineSkeleton />

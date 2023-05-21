@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { motion } from "framer-motion";
 
 export const Wrapper = styled(motion.div)`
-  cursor: pointer;
+  cursor: grab;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -14,6 +14,10 @@ export const Wrapper = styled(motion.div)`
     border-right: 4px solid red;
     border-bottom: 4px solid red;
     border-radius: 12px;
+  }
+
+  &:active {
+    cursor: grabbing;
   }
 
   .thumb {
